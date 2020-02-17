@@ -70,6 +70,12 @@ public class ModelCadi {
 		researches.insertOne(doc);
 	}
 
+	public void removeCADI(Document doc) {
+		MongoDatabase db = mongoClient.getDatabase("app");
+		MongoCollection<Document> researches = db.getCollection("cadi");
+		researches.deleteOne(doc);
+	}
+
 	public void addProjeto(Document doc) {
 		MongoDatabase db = mongoClient.getDatabase("app");
 		MongoCollection<Document> projeto = db.getCollection("projeto");

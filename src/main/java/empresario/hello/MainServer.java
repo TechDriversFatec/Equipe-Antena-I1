@@ -31,7 +31,7 @@ public class MainServer {
 		//initializeModelEmpresario();
         initializeControllerEmpresario();
         initializeControllerCadi();
-        //initializeModelCadi();
+        initializeModelCadi();
         initializeControllerProfessor();
         //initializeModelProfessor();
         initializeControllerAluno();
