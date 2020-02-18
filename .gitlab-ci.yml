@@ -1,0 +1,24 @@
+image: gradle:alpine
+
+services: 
+  mongodb:
+    build:
+      context: docker/mysql
+      dockerfile: Dockerfile
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script: ./gradlew --build-cache build
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
+
+test:
+  stage: test
+  script: ./gradlew test
