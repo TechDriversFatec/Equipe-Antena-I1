@@ -7,6 +7,8 @@ VOLUME ["/data/db"]
 # Define working directory.
 WORKDIR /data
 
+CMD ["mongod", "--smallfiles"]
+
 # Expose ports.
 #   - 27017: process
 #   - 28017: http

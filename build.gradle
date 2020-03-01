@@ -12,7 +12,7 @@ applicationName = 'app'
 defaultTasks = ['clean', 'jar']
 
 task launchMongo(type: Exec) {
-    commandLine 'docker', 'run', '-d', '-p', '27017:27017', '--name', 'mongodb', 'tutum/mongodb', 'mongod', '--smallfiles'
+    commandLine 'sudo docker', 'run', '-d', '-p', '27017:27017', '--name', 'mongodb', 'tutum/mongodb', 'mongod', '--smallfiles'
 }
 
 
