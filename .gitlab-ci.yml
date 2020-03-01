@@ -15,4 +15,4 @@ build:
 
 test:
   stage: test
-  script: ./gradlew test
+  script: docker run -d -p 27017:27017 --name mongodb tutum/mongodb mongod --smallfiles && ./gradlew test
