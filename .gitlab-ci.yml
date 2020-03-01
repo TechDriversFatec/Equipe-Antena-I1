@@ -1,11 +1,12 @@
 image: gradle:alpine
 
 services:
-    - name: tutum/mongodb:latest
+    - tutum/mongodb:latest
+    - docker:dind
 
 build:
   stage: build
-  script: ./gradlew --build-cache build
+  script: docker run -d -p 27017:27017 --name mongodb tutum/mongodb mongod --smallfiles && ./gradlew --build-cache build
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -15,4 +16,4 @@ build:
 
 test:
   stage: test
-  script: docker run -d -p 27017:27017 --name mongodb tutum/mongodb mongod --smallfiles && ./gradlew test
+  script: ./gradlew test
