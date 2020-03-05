@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  app:
+    image: imagem-antenas
+    ports: 
+      - 8081:8081
+    depends_on:
+      - "mongo"
+
+  mongo:
+    image: tutum/mongodb
+    ports:
+      - 27017:27017
