@@ -78,30 +78,38 @@ var Timeline = function (endpoint) {
 
       $('[aceitar-avaInit]').click(function (e) {
         if (projeto.fase === 1) {
-          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':2}), "json");
-          location.reload();
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':2}), "json")
+          .done(function (){
+                location.reload();
+          });
         }
         if(projeto.fase === 3){
-          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':4}), "json");
-          location.reload();
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':4}), "json")
+          .done(function (){
+              location.reload();
+          });
         }
         if(projeto.fase === 4){
-          var dataEntrega= $('#formGroupInserirEntrega').val();  
-          alert(dataEntrega);
-
-          alert(datas);
-          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'reuniao': {'datas-possiveis':datas}, 'dataEntrega':dataEntrega, 'responsavel-professor': $('#professor').val()}), "json");
-          location.reload();
+          var dataEntrega= $('#formGroupInserirEntrega').val();
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'reuniao': {'datas-possiveis':datas}, 'dataEntrega':dataEntrega, 'responsavel-professor': $('#professor').val()}), "json")
+              .done(function (){
+                  location.reload();
+          });
         }
         if (projeto.fase == 5){
-          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'reuniao' : {'data':dataReuniao}}), "json");
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'reuniao' : {'data':dataReuniao}}), "json")
+              .done(function (){
+                  location.reload();
+          });
         }
       });
       
       $('[recusar]').click(function (e) {
     	  	var rec = document.getElementById('recusa');
-    	  	$.post("/pulafase", JSON.stringify({'_id':projeto._id, 'status' : {'negado':true, 'motivo':rec.value}}), "json");
-    	  	location.reload();
+    	  	$.post("/pulafase", JSON.stringify({'_id':projeto._id, 'status' : {'negado':true, 'motivo':rec.value}}), "json")
+    	  	    .done(function (){
+                    location.reload();
+            });
         });
       
     }
@@ -229,25 +237,20 @@ var Timeline = function (endpoint) {
               linhas.push(linha);
               datas.push(linhas[cont]);
       		  cont++;
-      		  console.log(linhas);
-      		  console.log(datas);
               var linhadata = "<tr><td>"+data.val().toString()+"</td><td>"+hora.val().toString()+"</td><td>"+local.val().toString()+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+index+"'>×</input></td></tr>";
               
               $("#tabdata").append(linhadata);  
               var x = document.getElementById('test').getAttribute('remove-data');
-              console.log(x);
-           		               
+
             });
             $(document).on("click", ".botao-remove-data", function(event){
       			var idDataRem = this.getAttribute('remove-data');
       			datas.splice(idDataRem, 1);
-      			console.log(datas);
       			$("#tabdata").empty();
       			ind = 0;
       			datas.forEach(adcData);
       		});
             function adcData(data1){
-            		console.log(data1);
             		/*var d = data1.slice(0, 10);
             		var h = data1.slice(11, 16);
             		var l = data1.slice(17, 20);*/

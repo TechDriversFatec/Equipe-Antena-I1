@@ -30,6 +30,7 @@ public class ModelCadi {
 				.collect(Collectors.joining(", ", "[", "]"));
 		return foundJson;
 	}
+
 	public String searchUsuario(String chave, String valor) {
 		MongoDatabase db = mongoClient.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("cadi");
@@ -154,6 +155,12 @@ public class ModelCadi {
 		MongoCollection<Document> reuniao = db.getCollection("reuniao");
 		reuniao.insertOne(doc);
 	}
+
+	public void addEmpresario(Document doc) {
+		MongoDatabase db = mongoClient.getDatabase("app");
+		MongoCollection<Document> empresarios = db.getCollection("empresario");
+		empresarios.insertOne(doc);
+	}
 	
 	/*Update*/
 	public Document updateProjeto(Document projeto) {
@@ -172,6 +179,26 @@ public class ModelCadi {
 		query.append("_id", projeto.get("_id"));
 		Bson newDocument = new Document("$set", projeto);
 		return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
+	}
+
+	public void limpaColecoes() {
+		MongoDatabase db = mongoClient.getDatabase("app");
+		BasicDBObject documentVazio = new BasicDBObject();
+
+		MongoCollection collection = db.getCollection("cadi");
+		collection.deleteMany(documentVazio);
+
+		collection = db.getCollection("projeto");
+		collection.deleteMany(documentVazio);
+
+		collection = db.getCollection("reuniao");
+		collection.deleteMany(documentVazio);
+
+		collection = db.getCollection("professor");
+		collection.deleteMany(documentVazio);
+
+		collection = db.getCollection("empresario");
+		collection.deleteMany(documentVazio);
 	}
 
 }
