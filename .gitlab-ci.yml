@@ -1,8 +1,5 @@
 image: gradle:alpine
-image: docker
 
-services:
-  - docker:dind
 
 stages:
     - test
