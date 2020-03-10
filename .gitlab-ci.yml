@@ -1,9 +1,13 @@
 image: gradle:alpine
+image: docker:19.03.1
 
 
 stages:
     - test
     - build
+    
+before_script:
+    - docker info
 
 build:
   stage: build
