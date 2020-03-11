@@ -3,8 +3,8 @@ image: docker:19.03.1
 
 
 stages:
-    - test
     - build
+    - test
     
 before_script:
     - docker info
