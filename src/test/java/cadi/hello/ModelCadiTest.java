@@ -8,10 +8,9 @@ public class ModelCadiTest {
 
     @Test
     public void insertCadiTest(){
-        ModelCadi modelCadiTest = new ModelCadi();
+        ModelCadi modelCadiTest = new ModelCadi("fongo");
         Document testDocument = new Document("cadi","usuarioCadiExemplo");
 
-        modelCadiTest.removeCADI(testDocument);
         Assert.assertEquals("[]",modelCadiTest.searchUsuario("cadi","usuarioCadiExemplo"));
 
         modelCadiTest.addCADI(testDocument);

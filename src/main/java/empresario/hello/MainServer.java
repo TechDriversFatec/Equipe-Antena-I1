@@ -10,7 +10,7 @@ import aluno.hello.*;
 
 public class MainServer {
 	final static Model model = new Model();
-	final static ModelCadi modelCadi = new ModelCadi();
+	final static ModelCadi modelCadi = new ModelCadi("127.0.0.1");
 	final static ModelProfessor modelProf = new ModelProfessor();
 	final static ModelAluno modelAluno = new ModelAluno(); 
 	

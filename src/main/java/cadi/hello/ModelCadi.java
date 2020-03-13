@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import antena.utils.MongoConnector;
 import com.mongodb.MongoClient;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -18,9 +19,13 @@ import com.mongodb.client.model.FindOneAndUpdateOptions;
 
 public class ModelCadi {
 
+	private MongoClient mongoClient;
+
 //	mongoClient mongoClient = new mongoClient("app");
-	MongoClient mongoClient = new MongoClient( "127.0.0.1" );
-	MongoDatabase db = mongoClient.getDatabase("app");
+
+	public ModelCadi (String ip) {
+		this.mongoClient = MongoConnector.getClient(ip);
+	}
 
 	public String search(String chave, String valor) {
 		MongoDatabase db = mongoClient.getDatabase("app");
