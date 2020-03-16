@@ -14,8 +14,7 @@ build:
   script: 
     - ./gradlew --build-cache build
     - sudo docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/jesscahelen/antenas-integracao/latest
-    - sudo docker build -t $IMAGE_TAG .
-    - sudo docker push $IMAGE_TAG
+    - sudo docker build -t projetoantenas/antenas-integracao .
     - sudo docker push projetoantenas/antenas-integracao
 
   cache:
