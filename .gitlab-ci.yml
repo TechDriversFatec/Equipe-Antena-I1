@@ -26,9 +26,6 @@ build:
     paths:
       - build
       - .gradle
-  
-  - docker build -t $IMAGE_TAG .
-  - docker push $IMAGE_TAG
 
 test:
   stage: test
