@@ -16,7 +16,8 @@ build:
     - sudo docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/jesscahelen/antenas-integracao/master
     - sudo docker build -t $IMAGE_TAG .
     - sudo docker push $IMAGE_TAG
-    - sudo docker push projetoantenas/antenas-integracao:latest
+    - sudo docker push projetoantenas/antenas-integracao
+
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
