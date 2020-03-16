@@ -5,10 +5,31 @@ services:
     image: imagem-antenas
     ports: 
       - 8081:8081
+    network_mode: host
     depends_on:
-      - "mongo"
+      - mongodb
+    environment:
+      WAIT_HOSTS: mongodb:27017
 
-  mongo:
+  mongodb:
     image: tutum/mongodb
+    container_name: mongodb
+    command: ["mongod", "--smallfiles"]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=antenasdb
     ports:
       - 27017:27017
+    volumes:
+      - ./data/db:/data/db
+    depends_on:
+      - portainer
+
+  portainer:
+     image: portainer/portainer
+     ports: 
+       - 9000:9000
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+  
