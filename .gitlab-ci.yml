@@ -11,6 +11,8 @@ variables:
     
 before_script:
     - sudo docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/jesscahelen/antenas-integracao/master
+    only: 
+        - build
 
 build:
   stage: build
