@@ -17,11 +17,13 @@ import com.mongodb.client.model.FindOneAndUpdateOptions;
 
 public class ModelAluno {
 
-	MongoClient mongoClient = new MongoClient( "127.0.0.1" );
-	MongoDatabase db = mongoClient.getDatabase("app");
+	private MongoDatabase db;
+
+	public ModelAluno(MongoDatabase db) {
+		this.db = db;
+	}
 
 	public String search(String chave) {
-		MongoDatabase db = mongoClient.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
 		FindIterable<Document> found = projects.find(new Document("chave", chave));
 		String foundJson = StreamSupport.stream(found.spliterator(), false).map(Document::toJson)
@@ -54,18 +56,18 @@ public class ModelAluno {
 		MongoCollection<Document> projects = db.getCollection("projeto");
 		Document found = projects.find(new Document("_id", _id)).first();
 		BasicDBObject searchQuery = new BasicDBObject().append("_id", _id);
-		found.put("responsavel-professor", emailAluno);
+		found.put("alunos", emailAluno);
 		projects.replaceOne(searchQuery, found);
 		return found;
 	}
 	
-	public Document atribuir(String emailAluno, String _id) {
+	public Document atribuir(String emailAluno, Object _id) {
 		
 		MongoCollection<Document> projects = db.getCollection("projeto");
 		Document found = projects.find(new Document("_id", _id)).first();
 		if(found!=null) {
 			BasicDBObject searchQuery = new BasicDBObject().append("_id", _id);
-			found.put("responsavel-aluno", emailAluno);
+			found.put("alunos", emailAluno);
 			projects.replaceOne(searchQuery, found);
 			return found;
 		}

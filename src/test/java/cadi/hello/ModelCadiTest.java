@@ -1,5 +1,6 @@
 package cadi.hello;
 
+import antena.utils.MongoConnector;
 import org.bson.Document;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,7 +9,7 @@ public class ModelCadiTest {
 
     @Test
     public void insertCadiTest(){
-        ModelCadi modelCadiTest = new ModelCadi("fongo");
+        ModelCadi modelCadiTest = new ModelCadi(MongoConnector.connectToMongo("fongo","test"));
         Document testDocument = new Document("cadi","usuarioCadiExemplo");
 
         Assert.assertEquals("[]",modelCadiTest.searchUsuario("cadi","usuarioCadiExemplo"));

@@ -1,6 +1,10 @@
 package empresario.hello;
 
 import static spark.Spark.*;
+
+import antena.utils.MongoConnector;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import cadi.hello.ModelCadi;
 import professor.hello.ControllerProfessor;
@@ -9,12 +13,12 @@ import cadi.hello.ControllerCadi;
 import aluno.hello.*;
 
 public class MainServer {
-	final static Model model = new Model();
-	final static ModelCadi modelCadi = new ModelCadi("127.0.0.1");
-	final static ModelProfessor modelProf = new ModelProfessor();
-	final static ModelAluno modelAluno = new ModelAluno(); 
+	final static Model model = new Model(MongoConnector.connectToMongo("127.0.0.1", "app"));
+	final static ModelCadi modelCadi = new ModelCadi(MongoConnector.connectToMongo("127.0.0.1", "app"));
+	final static ModelProfessor modelProf = new ModelProfessor(MongoConnector.connectToMongo("127.0.0.1", "app"));
+	final static ModelAluno modelAluno = new ModelAluno(MongoConnector.connectToMongo("127.0.0.1", "app"));
 	
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
 		// Get port config of heroku on environment variable
         ProcessBuilder process = new ProcessBuilder();
@@ -27,6 +31,8 @@ public class MainServer {
         port(port);
 
 		staticFileLocation("/static");
+
+		//MongoConnector.iniciarConexao();
 
 		//initializeModelEmpresario();
         initializeControllerEmpresario();

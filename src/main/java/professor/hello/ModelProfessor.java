@@ -1,6 +1,7 @@
 package professor.hello;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -15,9 +16,12 @@ import com.mongodb.client.model.FindOneAndUpdateOptions;
 
 public class ModelProfessor {
 
-	MongoClient mongoClient = new MongoClient( "127.0.0.1" );
-	MongoDatabase db = mongoClient.getDatabase("app");
-	
+	private MongoDatabase db;
+
+	public ModelProfessor(MongoDatabase db) {
+		this.db = db;
+	}
+
 	public ArrayList<Document> myProjects(Document email) {
 		MongoCollection<Document> projetos = db.getCollection("projeto");
 		
@@ -32,7 +36,8 @@ public class ModelProfessor {
 			
 			for(String emailFromProject: emails) {
 				String emailFromUser = (String) email.get("email");
-				
+				emailFromProject = (String) Document.parse(emailFromProject).get("email");
+
 				if (emailFromProject.equals(emailFromUser)) {
 					projects.add(d);
 				}
@@ -93,7 +98,16 @@ public class ModelProfessor {
 		Bson newDocument = new Document("$set", projeto);
 		return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
 	}
-	
+
+	public List<Document> listProfs() {
+		MongoCollection<Document> profs = db.getCollection("professor");
+		FindIterable<Document> found = profs.find();
+		List<Document> listProf = new ArrayList<Document>();
+		for(Document prof: found){
+			listProf.add(prof);
+		}
+		return listProf;
+	}
 	
 
 }

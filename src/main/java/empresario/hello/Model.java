@@ -13,9 +13,12 @@ import com.mongodb.client.result.DeleteResult;
 
 public class Model{
 
+	private MongoDatabase db;
 
-	MongoClient mongoClient = new MongoClient( "127.0.0.1" );
-	MongoDatabase db = mongoClient.getDatabase("app");
+	public Model(MongoDatabase db) {
+		this.db = db;
+	}
+
 
 	public void addProjeto(Document projeto) {
 		MongoCollection<Document> projetos = db.getCollection("projeto");
