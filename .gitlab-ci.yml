@@ -1,7 +1,5 @@
 image: gradle:alpine
 
-
-
 stages:
     - build
     - test
