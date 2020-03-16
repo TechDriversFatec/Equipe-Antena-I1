@@ -16,8 +16,8 @@ build:
   stage: build
   script: 
     - ./gradlew --build-cache build
-    - docker build -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
+    - sudo docker build -t $IMAGE_TAG .
+    - sudo docker push $IMAGE_TAG
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
