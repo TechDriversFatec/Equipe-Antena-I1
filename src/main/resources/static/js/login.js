@@ -41,8 +41,8 @@ $("#btn-cadastro").click(function(event) {
     btn.setAttribute('disabled', '');
 
     var jsonString = JSON.stringify(json);
-
-    $.post("/cadastroempresario", jsonString, 'json')
+    console.log(json)
+    $.post("/empresario/cadastrar", jsonString, 'json')
         .done(function(){
             alert('Te enviamos um email com um link, acesse-o para ativar sua conta.');
             location.reload();
