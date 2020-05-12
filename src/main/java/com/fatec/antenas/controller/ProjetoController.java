@@ -46,6 +46,16 @@ public class ProjetoController {
 		return new ResponseEntity<>(projetoDAO.findAll(pageable), HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "byempresario/{responsavelEmpresario}")
+	public ResponseEntity<?> listProjectByEmpresario(@PathVariable String responsavelEmpresario){
+		return new ResponseEntity<>(projetoDAO.findByresponsavelEmpresario(responsavelEmpresario), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "bycadi/{responsavelCadi}")
+	public ResponseEntity<?> listProjectByCadi(@PathVariable String responsavelCadi){
+		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(responsavelCadi), HttpStatus.OK);
+	}
+	
 	@DeleteMapping(path="delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable String id){
 		verifyIfProjetcExistsID(id);

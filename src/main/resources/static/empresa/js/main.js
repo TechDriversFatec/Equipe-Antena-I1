@@ -1,29 +1,7 @@
 (function() {
 
-  let token = localStorage.getItem('token');
-  let projects;
-  let empresario;
+  let emailStorage = localStorage.getItem('email');
 
-  if (!token) {
-    location.replace('/');
-  }
-  else {
-    $.post("/is-auth", JSON.stringify({ token }), 'json')
-        .done(function(userInfo){
-          empresario = JSON.parse(userInfo);
-          $('[data-empresario-nome]').text(` | ${ empresario.nome }`);
-
-          $.get('/buscaprojetoporempresario', empresario.email)
-              .done(function(projetos){
-                projects = JSON.parse(projetos);
-                insertProjectsOnTable(projects);
-              });
-        })
-        .fail(function () {
-          localStorage.removeItem('token');
-          location.replace('/');
-        });
-  }
 
   let timeline = new Timeline('/atualizaProjeto');
 
@@ -54,14 +32,37 @@
     'responsavel-empresario': ''
   };
 
+  Fetch.get(`/empresario/byEmail/${emailStorage}`).then(empresario => {
+    Fetch.get(`/projeto/byempresario/${empresario.email}`).then(projetos => {
+      projetos.forEach(projeto => {
+        console.log(projeto)
+            let tr = $.parseHTML(`
+            <tr data-project-item="${ projeto._id }">
+              <th scope="row">${ projeto.titulo }</th>
+              <td data-timeline-show></td>
+              <td>
+                <a href="#" data-toggle="modal" data-target="#modal-mais-info">Mais informações</a>
+              </td>
+            </tr>
+          `);
+
+         let $tr = $(tr);
+         timeline.insertTimeline($tr.find('[data-timeline-show]').get(0), projeto);
+
+        $('[data-projects-table-body]').append(tr);
+      });
+    });
+
+
+
   function insertProjectsOnTable(projecs) {
     
-    let tbody = $('[data-projects-table-body]');
+    
 
-    projecs.forEach(project => {
+    projecs.forEach(projeto => {
       let tr = $.parseHTML(`
-        <tr data-project-item="${ project._id }">
-          <th scope="row">${ project.titulo }</th>
+        <tr data-project-item="${ projeto._id }">
+          <th scope="row">${ projeto.titulo }</th>
           <td data-timeline-show></td>
           <td>
             <a href="#" data-toggle="modal" data-target="#modal-mais-info">Mais informações</a>
@@ -75,7 +76,7 @@
         
         e.preventDefault();
 
-        maisInfoModal.find('#modal-label').text(project.titulo);
+        maisInfoModal.find('#modal-label').text(projeto.titulo);
 
         let pegaElemento = id => $(maisInfoModal.find(`#${id}`));
 
@@ -136,35 +137,35 @@
           let contentElement = item.element.find('[data-text-content]');
 
           if (item.key.indexOf('link-externo') != -1) {
-            contentElement.attr('href', project[item.key]);
+            contentElement.attr('href', projeto[item.key]);
           }
 
           if (item.key && !item.excessao) {
-            if (!project[item.key]) {
+            if (!projeto[item.key]) {
               item.element.addClass('d-none');
               return;
             }
             else {
-              contentElement.text(project[item.key]);
+              contentElement.text(projeto[item.key]);
             }
           }
           else if (!item.key) {
-            if (!project['link-externo-1'] && !project['link-externo-2']) {
+            if (!projeto['link-externo-1'] && !projeto['link-externo-2']) {
               item.element.addClass('d-none');
               return;
             }
           }
           else if (item.key === 'status') {
-            if (!project.status.negado) {
+            if (!projeto.status.negado) {
               item.element.addClass('d-none');
               return;
             }
             else {
-              contentElement.text(project.status.motivo);
+              contentElement.text(projeto.status.motivo);
             }
           }
           else if (item.key === 'reuniao') {
-            let reuniao = project.reuniao;
+            let reuniao = projeto.reuniao;
             
             if (!reuniao.data && !reuniao.horario && !reuniao.local) {
               item.element.addClass('d-none');
@@ -176,12 +177,12 @@
           }
           else if (item.key === 'entregas' || item.key ==='responsavel-professor') {
             
-            if (!project[item.key].length) {
+            if (!projeto[item.key].length) {
               item.element.addClass('d-none');
               return;
             }
             else {
-              project[item.key].forEach(x => {
+              projeto[item.key].forEach(x => {
                 contentElement.append($.parseHTML(`<li>${x}</li>`));
               });
             }
@@ -189,7 +190,7 @@
         });
       });
 
-      timeline.insertTimeline($tr.find('[data-timeline-show]').get(0), project);
+      timeline.insertTimeline($tr.find('[data-timeline-show]').get(0), projeto);
 
       tbody.append(tr);
     });
@@ -199,25 +200,32 @@
     
     let formNewProject = $('[data-form-new-project]');
     let inputsData = formNewProject.serializeArray();
-    let project = {
+    let projeto = {
       ...defaultModel,
       fase: 1,
       'responsavel-empresario': empresario.email
     };
 
     inputsData.forEach(input => {
-      project[input.name] = input.value; 
+      projeto[input.name] = input.value; 
     });
 
-    $.ajax({
-      type: "POST",
-      url: '/cadastroprojeto',
-      data: JSON.stringify(project),
-      success: function() {
-        location.reload();
-      },
-      dataType: 'json'
+    Fetch.post("/projeto/save", JSON.stringify(projeto)).then(() => {
+      location.reload();
+      /*const $form = document.getElementById("formulario");
+      $form.reset();
+      carregarTarefas();*/
     });
+
+    // $.ajax({
+    //   type: "POST",
+    //   url: '/projeto/save',
+    //   data: JSON.stringify(projeto),
+    //   success: function() {
+    //     location.reload();
+    //   },
+    //   dataType: 'json'
+    // });
   });
 
   $('[data-empresario-logout]').click(function(e){
@@ -227,4 +235,6 @@
     localStorage.removeItem('token');
     location.replace('/');
   })
+
+});
 })();

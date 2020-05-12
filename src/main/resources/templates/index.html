@@ -33,7 +33,7 @@ background-size: 100%;">
 
     <div id="login" class="modal">
       
-      <form data-login-form class="modal-content animate">
+      <form id="formulario" onsubmit="event.preventDefault(); entrar()" data-login-form class="modal-content animate">
         <div class="imgcontainer">
           <span onclick="fechaPopupLogin(event)" class="close" title="Close Modal">&times;</span>
         </div>
@@ -45,7 +45,7 @@ background-size: 100%;">
           <label for="senha-login"><b>Senha</b></label>
           <input type="password" id="senha-login" name="senha-login" required>
             
-          <button id="entraaaaa" type="submit">Entrar</button>
+          <button>Entrar</button>
         </div>
       </form>
     </div>
@@ -78,6 +78,8 @@ background-size: 100%;">
         </form>
       </div>
 
+  <!-- <script src="js/login.js"></script> -->
+  <script src="js/fetch.js"></script>
   <script src="js/login.js"></script>
 </body>
 

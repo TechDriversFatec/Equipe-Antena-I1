@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Projeto")
 public class DocumentProjeto {
 	@Id
-	private String id;
+	private String _id;
 	private String chave;
 	private String titulo;
 	private String descricaoBreve;
@@ -24,12 +24,12 @@ public class DocumentProjeto {
 	private List<String> responsavelProfessor;
 	private List<String> alunos;
 	
-	public DocumentProjeto(String id, String chave, String titulo, String descricaoBreve, String descricaoCompleta,
+	public DocumentProjeto(String _id, String chave, String titulo, String descricaoBreve, String descricaoCompleta,
 			String descricaoTecnologica, Integer fase, Reuniao reuniao, String statusMotivo, String status,
 			Entregas entregas, String responsavelCadi, String responsavelEmpresario, List<String> responsavelProfessor,
 			List<String> alunos) {
 		super();
-		this.id = id;
+		this._id = _id;
 		this.chave = chave;
 		this.titulo = titulo;
 		this.descricaoBreve = descricaoBreve;
@@ -156,6 +156,14 @@ public class DocumentProjeto {
 
 	public void setAlunos(List<String> alunos) {
 		this.alunos = alunos;
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 	
 	
