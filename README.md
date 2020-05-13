@@ -8,19 +8,19 @@
 
 ## Refatoração do Código
 Issues da primeira entrega:\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/1\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/2\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/3\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/5\
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/1 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/2 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/3 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/5 \
 \
 \
-Issues da segunda entrega:\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/4\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/10\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/12\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/15\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/16\
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17\
+Issues da segunda entrega: \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/4 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/10 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/12 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/15 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/16 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17 \
 
 
 ## Refatoração do Código
