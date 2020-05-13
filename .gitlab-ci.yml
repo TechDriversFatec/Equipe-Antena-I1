@@ -4,23 +4,18 @@ image: maven:latest
 stages:
     - test
     - build
-
+    - create-image
+    
 variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
-test:
-  stage: test
-  script: 
-    - $MAVEN_HOME/bin/mvn test
-
 build:
-  image: zenika/alpine-maven:latest
   stage: build
+  artifacts:
+    paths:
+      - target/*.jar
   script: 
     - $MAVEN_HOME/bin/mvn clean install -DskipTests 
-    - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - sudo docker build -t projetoantenas/antenas-integracao .
-    - sudo docker push projetoantenas/antenas-integracao
     
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -28,6 +23,24 @@ build:
     paths:
       - .m2/repository/
       - build
+
+
+test:
+  stage: test
+  script: 
+    - $MAVEN_HOME/bin/mvn test
+
+
+create-image:
+  image: gradle:alpine
+  stage: create-image
+  tags:
+    - deploy
+  script:
+    - cp target/*.jar src/main/docker
+    - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - sudo docker build -t projetoantenas/antenas-integracao src/main/docker
+    - sudo docker push projetoantenas/antenas-integracao
 
 
 
