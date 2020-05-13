@@ -12,7 +12,7 @@ variables:
 build:
   stage: build
   script: 
-    - mvn clean install -DskipTests 
+    - $MAVEN_HOME/bin/mvn clean install -DskipTests 
     
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -25,7 +25,7 @@ build:
 test:
   stage: test
   script: 
-    - mvn test
+    - $MAVEN_HOME/bin/mvn test
 
 
 create-image:
