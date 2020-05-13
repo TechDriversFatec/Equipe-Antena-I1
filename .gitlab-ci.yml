@@ -31,6 +31,8 @@ test:
 create-image:
   image: gradle:alpine
   stage: create-image
+  tags:
+    - deploy
   script:
     - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - sudo docker build -t projetoantenas/antenas-integracao .
