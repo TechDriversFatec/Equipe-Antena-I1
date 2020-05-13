@@ -10,15 +10,16 @@ public class Reuniao {
 	private String data;
 	private String local;
 	private String horario;
+	private List<String> datasPossiveis;
 	
-	public Reuniao(String data, String local, String horario) {
+	public Reuniao(String data, String local, String horario, List<String> datasPossiveis) {
 		super();
 		this.data = data;
 		this.local = local;
 		this.horario = horario;
+		this.datasPossiveis = datasPossiveis;
 	}
 	
-
 	
 	
 	

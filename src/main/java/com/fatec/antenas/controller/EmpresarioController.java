@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.WebUtils;
@@ -62,10 +63,9 @@ public class EmpresarioController {
 	}
 	
 	@PostMapping(path = "/update")
-	public ResponseEntity<?> update(@Valid @RequestBody DocumentEmpresario empresario, @RequestAttribute("idUsuarioLogado") String idUsuarioLogado){
-		if(empresarioDAO.findById(idUsuarioLogado) == null) {
-			throw new ResourceNotFoundException("Businessman not found dor ID: "+ idUsuarioLogado);
-		}
+	public ResponseEntity<?> update(@Valid @RequestBody DocumentEmpresario empresario){
+		String senha = empresario.getSenha();
+		empresario.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
 		return new ResponseEntity<>(empresarioDAO.save(empresario), HttpStatus.CREATED);
 	}
 	
@@ -81,11 +81,16 @@ public class EmpresarioController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "byEmail/{email}")
+	@GetMapping(path = "/byEmail/{email}")
 	public ResponseEntity<?> getEmpresarioByEmail(@PathVariable String email){
 		return new ResponseEntity<>(empresarioDAO.findByEmail(email), HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "/byID")
+	public ResponseEntity<?> getEmpresarioByID(@RequestAttribute("idUsuarioLogado") String idUsuarioLogado){
+		return new ResponseEntity<>(empresarioDAO.findById(idUsuarioLogado), HttpStatus.OK);
+	}
+
 
 	private void verifyIfEmpresarioExistsID(String id) {
 		if(!empresarioDAO.findById(id).isPresent() ) {
@@ -99,16 +104,5 @@ public class EmpresarioController {
 		}
 	}
 	
-	private boolean verifyIfLogin(ServletRequest request) {
-		
 	
-        HttpServletRequest httpRequest = (HttpServletRequest)request;
-		Cookie token = WebUtils.getCookie(httpRequest, "token");
-		 if (token == null) {
-			 return false;
-		 }
-		 
-		 
-		 return true;
-	}
 }

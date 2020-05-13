@@ -31,13 +31,17 @@ public class FilterLogin implements Filter {
 	        HttpServletResponse httpResponse = (HttpServletResponse)response;
 	        HttpServletRequest httpRequest = (HttpServletRequest)request;
 	
-	       
-	        if (!httpRequest.getServletPath().startsWith("/empresa/painel")) {
-	            // requisição para recurso estático
+	        if (httpRequest.getServletPath().equals("/") ||
+	        		httpRequest.getServletPath().startsWith("/css") ||
+	        		httpRequest.getServletPath().startsWith("/js") || httpRequest.getServletPath().startsWith("/imgs")) {
 	            chain.doFilter(request, response);
 	            return;
 	        }
-
+	        
+	        if (httpRequest.getServletPath().equals("/empresario/login")) {
+	            chain.doFilter(request, response);
+	            return;
+	        }
 	     
 	        Cookie token = WebUtils.getCookie(httpRequest, "token");
 	        if (token == null) {
@@ -72,4 +76,6 @@ public class FilterLogin implements Filter {
 	    @Override
 	    public void destroy() {
 	    }
+	    
+	   
 }

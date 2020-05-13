@@ -65,9 +65,9 @@ var Timeline = function (endpoint) {
             newProject = {
               ...newProject,
               fase: 3,
-              'descricao-completa': descCompleta,
-              'descricao-tecnologias': descTecnologias,
-              'link-externo-2': linkExterno2
+              'descricaoCompleta': descCompleta,
+              'descricaoTecnologias': descTecnologias,
+              'linkExterno2': linkExterno2
             };
 
             $.post(endpoint, JSON.stringify(newProject))
@@ -127,15 +127,15 @@ var Timeline = function (endpoint) {
         <form data-form-project-change>
           <div class="form-group">
             <label for="desc-completa">Descrição Completa:</label>
-            <textarea data-descricao-completa class="form-control" id="desc-completa" rows="3">${projeto['descricao-completa']}</textarea>
+            <textarea data-descricao-completa class="form-control" id="desc-completa" rows="3">${projeto['descricaoCompleta']}</textarea>
           </div>
           <div class="form-group">
             <label for="desc-tecnologias">Descrição das Tecnologias:</label>
-            <textarea data-descricao-tecnologias class="form-control" id="desc-tecnologias" rows="3">${projeto['descricao-tecnologias']}</textarea>
+            <textarea data-descricao-tecnologias class="form-control" id="desc-tecnologias" rows="3">${projeto['descricaoTecnologias']}</textarea>
           </div>
           <div class="form-group">
-            <label for="link-externo-2">Link externo 2:</label>
-            <input data-link-externo-2 type="text" class="form-control" value="${projeto['link-externo-2']}" id="link-externo-2">
+            <label for="linkExterno2">Link externo 2:</label>
+            <input data-linkExterno2 type="text" class="form-control" value="${projeto['linkExterno2']}" id="linkExterno2">
           </div>
         </form>`;
     }
@@ -227,7 +227,7 @@ var Timeline = function (endpoint) {
         title: 'Cadastro Detalhado',
         isActive: projeto.fase > 2,
         isPending: false,
-        isWaitingForInput: projeto.fase == 2 && (!projeto['descricao-completa'] || !projeto['descricao-tecnologias'])
+        isWaitingForInput: projeto.fase == 2 && (!projeto['descricaoCompleta'] || !projeto['descricaoTecnologias'])
       },
       {
         icon: _getIcon(''),

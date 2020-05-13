@@ -1,5 +1,6 @@
 package com.fatec.antenas.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fatec.antenas.error.ResourceAlreadyExistsException;
 import com.fatec.antenas.error.ResourceNotFoundException;
 import com.fatec.antenas.model.DocumentAluno;
+import com.fatec.antenas.model.Usuario;
 import com.fatec.antenas.repository.AlunoRepository;
+import com.fatec.antenas.security.JWTToken;
 
 @RestController
 @RequestMapping("/aluno")
@@ -26,6 +29,15 @@ public class AlunoController {
 	@Autowired
 	private AlunoRepository alunoDAO;
 	
+	@PostMapping(path = "/login")
+	public ResponseEntity<?> login(@RequestBody Usuario aluno, HttpServletResponse response){
+		DocumentAluno findAluno = alunoDAO.findByEmail(aluno.getEmail());
+		
+		JWTToken jwt = new JWTToken();
+		jwt.jwtGenerate(response, findAluno, aluno);
+     
+        return new ResponseEntity<>(findAluno.getEmail(), HttpStatus.OK);
+	}
 	
 	@PostMapping(path = "/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentAluno aluno){

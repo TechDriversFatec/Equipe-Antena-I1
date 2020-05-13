@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,24 +48,24 @@ public class ProjetoController {
 		return new ResponseEntity<>(projetoDAO.findAll(pageable), HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "byempresario/{responsavelEmpresario}")
+	@GetMapping(path = "/byempresario/{responsavelEmpresario}")
 	public ResponseEntity<?> listProjectByEmpresario(@PathVariable String responsavelEmpresario){
 		return new ResponseEntity<>(projetoDAO.findByresponsavelEmpresario(responsavelEmpresario), HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "bycadi/{responsavelCadi}")
+	@GetMapping(path = "/bycadi/{responsavelCadi}")
 	public ResponseEntity<?> listProjectByCadi(@PathVariable String responsavelCadi){
 		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(responsavelCadi), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(path="delete/{id}")
+	@DeleteMapping(path="/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable String id){
 		verifyIfProjetcExistsID(id);
 		projetoDAO.deleteById(id.toString());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "byID/{id}")
+	@GetMapping(path = "/byID/{id}")
 	public ResponseEntity<?> getProjectByID(@PathVariable String id){
 		return new ResponseEntity<>(projetoDAO.findById(id), HttpStatus.OK);
 	}
