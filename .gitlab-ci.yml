@@ -1,9 +1,9 @@
-image: image: maven:latest or image: maven:3-jdk-10 or image: maven:3-jdk-9
+image: maven:latest or image: maven:3-jdk-10 or image: maven:3-jdk-9
 
 
 stages:
-    - build
     - test
+    - build
     - create-image
     
 variables:
@@ -12,7 +12,7 @@ variables:
 build:
   stage: build
   script: 
-    - /usr/local/apache-maven/bin/mvn clean install -DskipTests 
+    - mvn clean install -DskipTests 
     
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -25,7 +25,7 @@ build:
 test:
   stage: test
   script: 
-    - /usr/local/apache-maven/bin/mvn test
+    - mvn test
 
 
 create-image:
