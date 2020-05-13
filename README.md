@@ -20,7 +20,7 @@ https://gitlab.com/jesscahelen/antenas-integracao/-/issues/10 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/12 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/15 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/16 \
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17 
 
 
 ## Refatoração do Código
