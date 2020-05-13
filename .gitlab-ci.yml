@@ -29,10 +29,10 @@ test:
 
 
 create-image:
-  image: docker:dind
+  image: gradle:alpine
   stage: create-image
   script:
-    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - docker build -t projetoantenas/antenas-integracao .
-    - docker push projetoantenas/antenas-integracao
+    - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - sudo docker build -t projetoantenas/antenas-integracao .
+    - sudo docker push projetoantenas/antenas-integracao
   
