@@ -6,7 +6,7 @@
 - Rodrigo Prado
 - Rone Bento
 
-## Refatoração do Código
+## Entregas
 Issues da primeira entrega:\
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/1 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/2 \
