@@ -212,9 +212,11 @@ if(session_login == null){
           $.get('/searchEmpresario/'+email)
           .done( data => {
             //, function(data){
+              console.log(data)
               empresa = JSON.parse(data).empresa;
               telefone = JSON.parse(data).telefone;
-              var tr2 = $.parseHTML(`<tr data-project-item="${ project._id.$oid }>
+              console.log(empresa)
+              var tr2 = $.parseHTML(`<tr data-project-item="${ project._id.$oid }> 
               <th scope="row">${ project.titulo }</th>
                   <td>${ project.titulo }</td>
                   <td>${ project['descricao-breve'] }</td>
@@ -257,10 +259,8 @@ if(session_login == null){
   
                 /* evento que submita a atribuição para o CADI */
                 $submit.click(function(){
-                    $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json")
-                    .done(function (){
-                        location.reload();
-                    });
+                    $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
+                    location.reload();
                 });
   
                 modbody.append(body_sd);
