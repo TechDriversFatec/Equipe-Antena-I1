@@ -1,8 +1,13 @@
 image: maven:latest
 
+services:
+- docker:dind
+
+
 stages:
     - build
     - test
+    - create-image
     
 variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
@@ -11,10 +16,7 @@ build:
   stage: build
   script: 
     - $MAVEN_HOME/bin/mvn clean install -DskipTests
-    - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - sudo docker build -t projetoantenas/antenas-integracao .
-    - sudo docker push projetoantenas/antenas-integracao
-
+    
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -27,3 +29,12 @@ test:
   stage: test
   script: 
     - $MAVEN_HOME/bin/mvn test
+
+
+create-image:
+  stage: create-image
+  script:
+    - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - sudo docker build -t projetoantenas/antenas-integracao .
+    - sudo docker push projetoantenas/antenas-integracao
+  
