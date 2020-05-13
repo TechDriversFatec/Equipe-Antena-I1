@@ -30,7 +30,7 @@ test:
   image: maven:latest
   stage: test
   script: 
-    - mvn test
+    - $MAVEN_HOME/bin/mvn test
 
 
 create-image:
