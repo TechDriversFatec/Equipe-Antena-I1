@@ -22,7 +22,7 @@ public class DocumentCadiTest {
     @Test
     public void testeDocumentCadi (){
         Assert.assertEquals(cadiDAO.findByEmail("teste@teste.com"), null);
-        DocumentCadi documentCadi = new DocumentCadi(null,"Nome Teste", "teste@teste.com","senhaTeste" , true);
+        DocumentCadi documentCadi = new DocumentCadi(null,"Nome Teste", "teste@teste.com","senhaTeste" );
         cadiDAO.save(documentCadi);
         DocumentCadi documentCadiFound = cadiDAO.findByEmail("teste@teste.com");
         Assert.assertEquals(documentCadiFound.getNome(), documentCadi.getNome());
