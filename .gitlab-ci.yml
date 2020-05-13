@@ -1,7 +1,7 @@
 image: maven:latest
 
 services:
-- docker:dind
+  - docker:dind
 
 
 stages:
@@ -30,12 +30,13 @@ test:
   image: maven:latest
   stage: test
   script: 
-    - $MAVEN_HOME/bin/mvn test
+    - mvn test
 
 
 create-image:
-  image: maven:latest
   stage: create-image
+  services:
+  - docker:dind
   script:
     - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - sudo docker build -t projetoantenas/antenas-integracao .
