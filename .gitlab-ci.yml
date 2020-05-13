@@ -10,7 +10,7 @@ variables:
 build:
   stage: build
   script: 
-    - mvn clean install -DskipTests
+    - $MAVEN_HOME/bin/mvn clean install -DskipTests
     - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - sudo docker build -t projetoantenas/antenas-integracao .
     - sudo docker push projetoantenas/antenas-integracao
@@ -25,4 +25,5 @@ build:
 
 test:
   stage: test
-  script: mvn test
+  script: 
+    - $MAVEN_HOME/bin/mvn test
