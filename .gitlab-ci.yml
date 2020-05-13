@@ -1,4 +1,4 @@
-image: maven:latest
+image: image: maven:latest or image: maven:3-jdk-10 or image: maven:3-jdk-9
 
 
 stages:
