@@ -13,6 +13,7 @@ variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 build:
+  image: maven:latest
   stage: build
   script: 
     - $MAVEN_HOME/bin/mvn clean install -DskipTests
@@ -26,12 +27,14 @@ build:
 
 
 test:
+  image: maven:latest
   stage: test
   script: 
     - $MAVEN_HOME/bin/mvn test
 
 
 create-image:
+  image: maven:latest
   stage: create-image
   script:
     - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
