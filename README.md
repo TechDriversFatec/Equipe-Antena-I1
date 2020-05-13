@@ -13,7 +13,6 @@ https://gitlab.com/jesscahelen/antenas-integracao/-/issues/2 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/3 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/5 \
 \
-\
 Issues da segunda entrega: \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/4 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/10 \
