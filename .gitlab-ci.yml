@@ -16,7 +16,7 @@ build:
   image: maven:latest
   stage: build
   script: 
-    - $MAVEN_HOME/bin/mvn clean install -DskipTests
+    - mvn clean install -DskipTests
     
   cache:
     key: "$CI_COMMIT_REF_NAME"
