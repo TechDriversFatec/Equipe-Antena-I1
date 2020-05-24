@@ -35,8 +35,6 @@ test:
 create-image:
   image: gradle:alpine
   stage: create-image
-  tags:
-    - deploy
   script:
     - cp target/*.jar .
     - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
@@ -59,6 +57,8 @@ create-image:
 
 deploy:
   <<: *prod_deploy
+  tags:
+    - deploy
   when: manual
   only:
     - master
