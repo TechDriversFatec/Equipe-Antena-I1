@@ -45,7 +45,6 @@ create-image:
 
 
 .gcloud: &gcloud
-  - echo $GCLOUD_KEY | base64 --decode -i > ~/gcloud-key.json
   - gcloud auth activate-service-account --key-file ~/gcloud-key.json
   - gcloud container clusters get-credentials $GCLOUD_CLUSTER
 
