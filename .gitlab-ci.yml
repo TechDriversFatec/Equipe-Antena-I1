@@ -55,9 +55,9 @@ create-image:
 .prod_deploy: &prod_deploy
   image: google/cloud-sdk
   script:
-    - kubectl delete service $NOME_SERVICO
     - kubectl create deployment $NOME_SERVICO --image=projetoantenas/antenas-integracao:latest
     - kubectl expose deployment $NOME_SERVICO --type=LoadBalancer --port 80 --target-port 8080
+    - kubectl get service
 
 deploy:
   <<: *prod_deploy
@@ -65,6 +65,8 @@ deploy:
   tags:
     - cluster
   when: manual
+  before_script: 
+    - kubectl delete service $NOME_SERVICO
   only:
     - master
 
