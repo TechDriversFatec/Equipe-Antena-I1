@@ -1,10 +1,10 @@
 # Projeto Antenas
 
-- Jean Pierro
-- Jéssica Rosado
-- Marcelo Teixeira
-- Rodrigo Prado
-- Rone Bento
+- [Jean Pierro](https://gitlab.com/JeanLPierro)
+- [Jéssica Rosado](https://gitlab.com/jesscahelen/)
+- [Marcelo Teixeira](https://gitlab.com/marcelofsteixeira)
+- [Rodrigo Prado](https://gitlab.com/RodrigoPradoDaSilva)
+- [Rone Bento](https://gitlab.com/ronefb)
 
 ## Entregas
 Issues da primeira entrega:\
@@ -21,6 +21,13 @@ https://gitlab.com/jesscahelen/antenas-integracao/-/issues/15 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/16 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17 
 
+Issues da terceira entrega: \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/6 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/7 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/11 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/18 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/20 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/25 
 
 ## Refatoração do Código
 
@@ -63,9 +70,9 @@ Até o momento uma vm foi inicializada e configurada juntamente com a configura�
 - Compilação do código (fase de 'build') através da ferramenta Maven.
 - Geração de uma imagem docker utilizando o projeto compilado e upload dela para o repositório projetoantenas/antenas-integracao. [Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17).
 
-A fase de CD do projeto será composta por:
-- Execução do aplicativo como imagem de um contêiner Docker em um cluster do Google Kubernetes Engine.
-- Garantir o Deploy Contínuo com o [mecanismo de atualização gradual do GKE](https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#step_8_deploy_a_new_version_of_your_app).
+A fase de CD do projeto passa pelos seguintes passos:
+- Download da imagem mais recente do repositório projetoantenas/antenas-integracao para um servidor hospedado no serviço Google Cloud.
+- Execução da aplicação baseada em 3 pods do Google Kubernetes Engine.(https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#step_8_deploy_a_new_version_of_your_app).[Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/6).
 
 ## MongoDB Atlas
 
@@ -76,6 +83,10 @@ No momento o banco está mapeado para testes e para produção, falta verificar 
 
 ## Sonarqube Cloud
 
-Para o Monitoramento do App foi escolhido o [Sonarqube Cloud](https://sonarcloud.io/), pois, possui várias métricas e relatórios de bugs, integração com [Jacoco](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin) para cobertura de código e integração com Gitlab para que o repositório seja sincronizado. Auxilia a configuração que tem passos manuais e tem a disponibilidade de utilizar sem a necessidade de também sobrecarregar mais nossa máquina virtual e manter disponível o acesso dos dados por todos envolvidos no projeto. [Link para Issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/12).
-\
-No momento, ainda não foi implementado nenhuma configuração na master, e estará com o prazo para implementação para a entrega 3 na [Issue #25](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/25)
+Para o Monitoramento do App foi escolhido o [Sonarqube Cloud](https://sonarcloud.io/), pois, possui várias métricas e relatórios de bugs, integração com [Jacoco](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin) para cobertura de código e integração com Gitlab para que o repositório seja sincronizado. Auxilia a configuração que tem passos manuais e tem a disponibilidade de utilizar sem a necessidade de também sobrecarregar mais nossa máquina virtual e manter disponível o acesso dos dados por todos envolvidos no projeto. [Link para Issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/25).
+O Sonarqube é um job do nosso CI, e ele é realizado sempre que há um commit na branch master.
+E está disponível para consulta: [Sonarqube Cloud - Projeto Antenas](https://sonarcloud.io/dashboard?id=jesscahelen_antenas-integracao)
+
+## Scouter
+
+Para a análise de app será utilizada a [Scouter](https://github.com/scouter-project/scouter), ferramenta Open Source compatível com Java,  e que cumpre os requisitos de monitoramento de comportamento e estatisticas da aplicação (uso de recurso de sistemas, logs de acesso ao servidor da aplicação, entre outras métricas de análise).[Link para Issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/11)
