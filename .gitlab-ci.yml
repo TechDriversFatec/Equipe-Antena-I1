@@ -2,9 +2,9 @@ image: maven:latest
 
 
 stages:
-    - test
-    - build
-    - create-image
+    #- test
+    #- build
+    #- create-image
     - deploy
     
 variables:
