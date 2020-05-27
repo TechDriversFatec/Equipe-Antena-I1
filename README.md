@@ -84,6 +84,6 @@ Para o Monitoramento do App foi escolhido o [Sonarqube Cloud](https://sonarcloud
 O Sonarqube é um job do nosso CI, e ele é realizado sempre que há um commit na branch master.
 E está disponível para consulta: [Sonarqube Cloud - Projeto Antenas](https://sonarcloud.io/dashboard?id=jesscahelen_antenas-integracao)
 
-## Sonarqube Cloud
+## Scouter
 
 Para a análise de app será utilizada a [Scouter](https://github.com/scouter-project/scouter), ferramenta Open Source compatível com Java,  e que cumpre os requisitos de monitoramento de comportamento e estatisticas da aplicação (uso de recurso de sistemas, logs de acesso da aplicação, entre outras métricas de análise).
