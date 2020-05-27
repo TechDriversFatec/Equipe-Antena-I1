@@ -22,6 +22,7 @@ https://gitlab.com/jesscahelen/antenas-integracao/-/issues/16 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17 
 
 Issues da terceira entrega: \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/6 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/7 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/11 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/18 \
@@ -67,9 +68,9 @@ Até o momento uma vm foi inicializada e configurada juntamente com a configura�
 - Compilação do código (fase de 'build') através da ferramenta Maven.
 - Geração de uma imagem docker utilizando o projeto compilado e upload dela para o repositório projetoantenas/antenas-integracao. [Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17).
 
-A fase de CD do projeto será composta por:
-- Execução do aplicativo como imagem de um contêiner Docker em um cluster do Google Kubernetes Engine.
-- Garantir o Deploy Contínuo com o [mecanismo de atualização gradual do GKE](https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#step_8_deploy_a_new_version_of_your_app).
+A fase de CD do projeto passa pelos seguintes passos:
+- Download da imagem mais recente do repositório projetoantenas/antenas-integracao para um servidor hospedado no serviço Google Cloud.
+- Execução da aplicação baseada em 3 pods do Google Kubernetes Engine.(https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#step_8_deploy_a_new_version_of_your_app).[Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/6).
 
 ## MongoDB Atlas
 
