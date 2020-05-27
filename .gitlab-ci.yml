@@ -51,25 +51,19 @@ create-image:
     - sudo docker push projetoantenas/antenas-integracao
   only:
     - master
-
-
-.gcloud: &gcloud
-  - gcloud auth activate-service-account --key-file ~/gcloud-key.json
-  - gcloud container clusters get-credentials $GCLOUD_CLUSTER
+    
 
 .prod_deploy: &prod_deploy
   image: google/cloud-sdk
-  before_script: 
-    - *gcloud
-    - kubectl delete service $NOME_SERVICO
   script:
     - kubectl create deployment $NOME_SERVICO --image=projetoantenas/antenas-integracao:latest
     - kubectl expose deployment $NOME_SERVICO --type=LoadBalancer --port 80 --target-port 8080
 
 deploy:
   <<: *prod_deploy
+  stage: deploy
   tags:
-    - deploy
+    - cluster
   when: manual
   only:
     - master
