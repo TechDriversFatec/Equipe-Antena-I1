@@ -65,8 +65,8 @@ deploy:
   tags:
     - cluster
   when: manual
-  before_script: 
-    - kubectl delete service $NOME_SERVICO
+  #before_script: 
+   # - kubectl delete service $NOME_SERVICO
   only:
     - master
 
