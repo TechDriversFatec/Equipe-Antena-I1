@@ -22,7 +22,11 @@ https://gitlab.com/jesscahelen/antenas-integracao/-/issues/16 \
 https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17 
 
 Issues da terceira entrega: \
-https://gitlab.com/jesscahelen/antenas-integracao/-/issues/25
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/7 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/11 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/18 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/20 \
+https://gitlab.com/jesscahelen/antenas-integracao/-/issues/25 
 
 ## Refatoração do Código
 
