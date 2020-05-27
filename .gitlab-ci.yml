@@ -52,6 +52,9 @@ create-image:
   only:
     - master
     
+.gcloud: &gcloud
+  - gcloud auth activate-service-account --key-file ~/gcloud-key.json
+  - gcloud container clusters get-credentials $GCLOUD_CLUSTER
 
 .prod_deploy: &prod_deploy
   image: google/cloud-sdk
@@ -64,6 +67,8 @@ deploy:
   stage: deploy
   tags:
     - cluster
+  before_script: 
+    - *gcloud
   when: manual
   only:
     - master
