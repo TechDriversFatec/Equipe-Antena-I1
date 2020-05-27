@@ -83,3 +83,7 @@ No momento o banco está mapeado para testes e para produção, falta verificar 
 Para o Monitoramento do App foi escolhido o [Sonarqube Cloud](https://sonarcloud.io/), pois, possui várias métricas e relatórios de bugs, integração com [Jacoco](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin) para cobertura de código e integração com Gitlab para que o repositório seja sincronizado. Auxilia a configuração que tem passos manuais e tem a disponibilidade de utilizar sem a necessidade de também sobrecarregar mais nossa máquina virtual e manter disponível o acesso dos dados por todos envolvidos no projeto. [Link para Issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/25).
 O Sonarqube é um job do nosso CI, e ele é realizado sempre que há um commit na branch master.
 E está disponível para consulta: [Sonarqube Cloud - Projeto Antenas](https://sonarcloud.io/dashboard?id=jesscahelen_antenas-integracao)
+
+## Sonarqube Cloud
+
+Para a análise de app será utilizada a [Scouter](https://github.com/scouter-project/scouter), ferramenta Open Source compatível com Java,  e que cumpre os requisitos de monitoramento de comportamento e estatisticas da aplicação (uso de recurso de sistemas, logs de acesso da aplicação, entre outras métricas de análise).
