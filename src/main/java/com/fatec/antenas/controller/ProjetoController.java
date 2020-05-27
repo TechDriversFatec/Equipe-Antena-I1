@@ -39,7 +39,7 @@ public class ProjetoController {
 	@PostMapping(path = "/save/reuniao/{id}")
 	public ResponseEntity<?> insertReuniao(@RequestBody Reuniao reuniao, @PathVariable String id){
 		DocumentProjeto find = projetoDAO.findById(id).get();
-		find.setReuniao(reuniao);
+		//find.setReuniao(reuniao);
 		return new ResponseEntity<>(projetoDAO.save(find), HttpStatus.CREATED);
 	}
 	
@@ -58,6 +58,12 @@ public class ProjetoController {
 		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(responsavelCadi), HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "/byNotExistsCadi")
+	public ResponseEntity<?> listProjectNotExistsCadi(){
+		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(""), HttpStatus.OK);
+	}
+	
+	
 	@DeleteMapping(path="/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable String id){
 		verifyIfProjetcExistsID(id);
@@ -69,7 +75,6 @@ public class ProjetoController {
 	public ResponseEntity<?> getProjectByID(@PathVariable String id){
 		return new ResponseEntity<>(projetoDAO.findById(id), HttpStatus.OK);
 	}
-	
 	
 	private void verifyIfProjetcExistsID(String id) {
 		if(!projetoDAO.findById(id).isPresent() ) {

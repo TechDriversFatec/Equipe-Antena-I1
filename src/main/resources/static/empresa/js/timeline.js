@@ -9,7 +9,7 @@ var Timeline = function (endpoint) {
 
   function _getInitialModalHTML(projeto) {
     return `
-      <div class="modal fade" id="modal-extra-${ projeto._id.$oid }" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal fade" id="modal-extra-${ projeto._id }" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,7 @@ var Timeline = function (endpoint) {
             </div>
             <div class="modal-body">
             </div>
-            <div class="modal-footer">
+            <div class="data-open-to-input modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
           </div>
@@ -31,13 +31,14 @@ var Timeline = function (endpoint) {
 
   function _customPopupElement(projeto, inputsHTML) {
 
-    let modalExtra = `#modal-extra-${projeto._id.$oid} `;
+    let modalExtra = `#modal-extra-${projeto._id}`;
 
     $('#modal-label').text(projeto.titulo);
 
-    $(modalExtra + '.modal-body').html(inputsHTML);
+    $(modalExtra + ' .modal-body').html(inputsHTML);
 
-    var footer = $(modalExtra + '.modal-footer');
+    var footer = $(modalExtra + ' .modal-footer');
+    
     var btn = footer.get()[0].querySelector('[data-send-changes]');
 
     if (btn)
@@ -66,12 +67,13 @@ var Timeline = function (endpoint) {
               ...newProject,
               fase: 3,
               'descricaoCompleta': descCompleta,
-              'descricaoTecnologias': descTecnologias,
+              'descricaoTecnologica': descTecnologias,
               'linkExterno2': linkExterno2
             };
 
-            $.post(endpoint, JSON.stringify(newProject))
-              .done(() => location.reload());
+            Fetch.post(endpoint, newProject).then(() => {
+              location.reload();
+            });
           }
         }
         else if (projeto.fase === 4) {
@@ -89,8 +91,9 @@ var Timeline = function (endpoint) {
               }
             };
 
-            $.post(endpoint, JSON.stringify(newProject))
-              .done(() => location.reload());
+            Fetch.post(endpoint, newProject).then(() => {
+              location.reload();
+            });
           }
         }
       });
@@ -131,11 +134,11 @@ var Timeline = function (endpoint) {
           </div>
           <div class="form-group">
             <label for="desc-tecnologias">Descrição das Tecnologias:</label>
-            <textarea data-descricao-tecnologias class="form-control" id="desc-tecnologias" rows="3">${projeto['descricaoTecnologias']}</textarea>
+            <textarea data-descricao-tecnologias class="form-control" id="desc-tecnologias" rows="3">${projeto['descricaoTecnologica']}</textarea>
           </div>
           <div class="form-group">
             <label for="linkExterno2">Link externo 2:</label>
-            <input data-linkExterno2 type="text" class="form-control" value="${projeto['linkExterno2']}" id="linkExterno2">
+            <input data-link-externo-2 type="text" class="form-control" value="${projeto['linkExterno2']}" id="link-externo-2">
           </div>
         </form>`;
     }
@@ -147,7 +150,7 @@ var Timeline = function (endpoint) {
             <label for="data-reuniao">Escolha uma data para a reunião:</label>
             <select data-reuniao id="data-reuniao" class="form-control">
               ${
-        projeto.reuniao['datas-possiveis'].map(dataHora =>
+        projeto.reuniao['datasPossiveis'].map(dataHora =>
           `<option value="${dataHora.data}-${dataHora.hora}">${dataHora.data} - ${dataHora.hora}</option>`)
         }
             </select>
@@ -174,9 +177,9 @@ var Timeline = function (endpoint) {
           `
                   <tr>
                     <th scope="row">${ index + 1}</th>
-                    <td>${ entrega['aluno-responsavel']}</td>
-                    <td><a href="${ entrega['link-repositorio']}" target="_blank">${entrega['link-repositorio']}</a></td>
-                    <td><a href="${ entrega['link-cloud']}" target="_blank">${entrega['link-cloud']}</a></td>
+                    <td>${ entrega['alunoResponsavel']}</td>
+                    <td><a href="${ entrega['linkRepositorio']}" target="_blank">${entrega['linkRepositorio']}</a></td>
+                    <td><a href="${ entrega['linkCloud']}" target="_blank">${entrega['linkCloud']}</a></td>
                     <td>${ entrega.comentario}</td>
                   </tr>
                 `
@@ -227,7 +230,7 @@ var Timeline = function (endpoint) {
         title: 'Cadastro Detalhado',
         isActive: projeto.fase > 2,
         isPending: false,
-        isWaitingForInput: projeto.fase == 2 && (!projeto['descricaoCompleta'] || !projeto['descricaoTecnologias'])
+        isWaitingForInput: projeto.fase == 2 && (!projeto['descricaoCompleta'] || !projeto['descricaoTecnologica'])
       },
       {
         icon: _getIcon(''),
@@ -240,8 +243,8 @@ var Timeline = function (endpoint) {
         icon: _getIcon(''),
         title: 'Reunião',
         isActive: projeto.fase > 4,
-        isPending: projeto.fase == 4 && !projeto.reuniao['datas-possiveis'].length,
-        isWaitingForInput: projeto.fase == 4 && projeto.reuniao['datas-possiveis'].length
+        isPending: projeto.fase == 4 && !projeto.reuniao['datasPossiveis'].length,
+        isWaitingForInput: projeto.fase == 4 && projeto.reuniao['datasPossiveis'].length
       },
       {
         icon: _getIcon(''),
@@ -265,7 +268,7 @@ var Timeline = function (endpoint) {
           extraAttributes = `
               href="#" 
               data-toggle="modal" 
-              data-target="#modal-extra-${ projeto._id.$oid}"
+              data-target="#modal-extra-${projeto._id}"
               data-open-to-input=${index}`;
         }
 

@@ -14,7 +14,21 @@ public class indexController {
 	
 	@RequestMapping("/empresa/painel")
 	public String empresarioView( @RequestAttribute("idUsuarioLogado") String idUsuarioLogado) {
-		
 		return "empresa";
+	}
+	
+	@RequestMapping("/cadi/painel")
+	public String cadiView( @RequestAttribute("idUsuarioLogado") String idUsuarioLogado) {
+		return "cadi";
+	}
+	
+	@RequestMapping("/professor/painel")
+	public String professorView( @RequestAttribute("idUsuarioLogado") String idUsuarioLogado) {
+		return "professor";
+	}
+	
+	@RequestMapping("/aluno/painel")
+	public String alunoView( @RequestAttribute("idUsuarioLogado") String idUsuarioLogado) {
+		return "aluno";
 	}
 }

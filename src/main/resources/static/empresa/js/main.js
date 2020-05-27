@@ -1,9 +1,6 @@
 (function() {
 
-  let emailStorage = localStorage.getItem('email');
-
-
-  let timeline = new Timeline('/atualizaProjeto');
+  let timeline = new Timeline('/projeto/update');
 
   let maisInfoModal = $('#modal-mais-info');
 
@@ -42,7 +39,7 @@
             },
             {
               element: pegaElemento('info-descricao-tecnologias'),
-              key: 'descricaoTecnologias'
+              key: 'descricaoTecnologica'
             },
             {
               element: pegaElemento('info-links-externos'),
@@ -156,7 +153,7 @@
     titulo: '',
     'descricaoBreve': '',
     'descricaoCompleta': '',
-    'descricaoTecnologias': '',
+    'descricaoTecnologica': '',
     'linkExterno1': '',
     'linkExterno2': '',
     fase: 0,
@@ -164,7 +161,14 @@
       negado: false,
       motivo: ''
     },
-    'responsavelEmpresario': ''
+    'responsavelEmpresario': '',
+    'responsavelCadi': '',
+    reuniao:{
+      data:'',
+      horario:'',
+      local:'',
+      datasPossiveis:['']
+    }
   };
 
 

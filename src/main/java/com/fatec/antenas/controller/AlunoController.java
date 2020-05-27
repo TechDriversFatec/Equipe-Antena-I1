@@ -21,6 +21,7 @@ import com.fatec.antenas.model.DocumentAluno;
 import com.fatec.antenas.model.Usuario;
 import com.fatec.antenas.repository.AlunoRepository;
 import com.fatec.antenas.security.JWTToken;
+import com.fatec.antenas.util.PasswordEncrypt;
 
 @RestController
 @RequestMapping("/aluno")
@@ -42,6 +43,8 @@ public class AlunoController {
 	@PostMapping(path = "/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentAluno aluno){
 		verifyIfAlunoExistsEmail(aluno.getEmail());
+		String senha = aluno.getSenha();
+		aluno.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
 		return new ResponseEntity<>(alunoDAO.save(aluno), HttpStatus.CREATED);
 	}
 	

@@ -38,7 +38,22 @@ public class FilterLogin implements Filter {
 	            return;
 	        }
 	        
-	        if (httpRequest.getServletPath().equals("/empresario/login")) {
+	        if (httpRequest.getServletPath().equals("/empresario/login") || httpRequest.getServletPath().equals("/empresario/save")) {
+	            chain.doFilter(request, response);
+	            return;
+	        }
+	        
+	        if (httpRequest.getServletPath().equals("/cadi/login") || httpRequest.getServletPath().equals("/cadi/save")) {
+	            chain.doFilter(request, response);
+	            return;
+	        }
+	        
+	        if (httpRequest.getServletPath().equals("/aluno/login") || httpRequest.getServletPath().equals("/aluno/save")) {
+	            chain.doFilter(request, response);
+	            return;
+	        }
+	        
+	        if (httpRequest.getServletPath().equals("/professor/login") || httpRequest.getServletPath().equals("/professor/save")) {
 	            chain.doFilter(request, response);
 	            return;
 	        }

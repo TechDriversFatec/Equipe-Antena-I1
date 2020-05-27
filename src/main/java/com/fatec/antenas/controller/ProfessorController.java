@@ -1,5 +1,6 @@
 package com.fatec.antenas.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.antenas.error.ResourceAlreadyExistsException;
 import com.fatec.antenas.error.ResourceNotFoundException;
+import com.fatec.antenas.model.DocumentEmpresario;
 import com.fatec.antenas.model.DocumentProfessor;
+import com.fatec.antenas.model.Usuario;
 import com.fatec.antenas.repository.ProfessorRepository;
+import com.fatec.antenas.security.JWTToken;
+import com.fatec.antenas.util.PasswordEncrypt;
 
 @RestController
 @RequestMapping("/professor")
@@ -26,9 +31,22 @@ public class ProfessorController {
 	@Autowired
 	private ProfessorRepository professorDAO;
 	
+	@PostMapping(path = "/login")
+	public ResponseEntity<?> login(@RequestBody Usuario professor, HttpServletResponse response){
+		DocumentProfessor findProfessor = professorDAO.findByEmail(professor.getEmail());
+		
+		JWTToken jwt = new JWTToken();
+		jwt.jwtGenerate(response, findProfessor, professor);
+     
+        return new ResponseEntity<>(findProfessor.getEmail(), HttpStatus.OK);
+	}
+	
+	
 	@PostMapping(path = "/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentProfessor professor){
 		verifyIfProfessorExistsEmail(professor.getEmail());
+		String senha = professor.getSenha();
+		professor.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
 		return new ResponseEntity<>(professorDAO.save(professor), HttpStatus.CREATED);
 	}
 	
@@ -39,7 +57,7 @@ public class ProfessorController {
 	
 	@GetMapping(path = "/all")
 	public ResponseEntity<?> listAll(Pageable pageable){
-		return new ResponseEntity<>(professorDAO.findAll(pageable), HttpStatus.OK);
+		return new ResponseEntity<>(professorDAO.findAll(), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path="delete/{id}")
