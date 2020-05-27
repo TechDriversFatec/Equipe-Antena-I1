@@ -55,6 +55,7 @@ variables:
 .prod_deploy: &prod_deploy
   image: google/cloud-sdk
   script:
+    - kubectl config get-contexts
     - kubectl create deployment $NOME_SERVICO --image=projetoantenas/antenas-integracao:latest
     - kubectl expose deployment $NOME_SERVICO --type=LoadBalancer --port 80 --target-port 8080
 
@@ -62,7 +63,7 @@ deploy:
   <<: *prod_deploy
   stage: deploy
   tags:
-    - deploy2
+    - cluster
   when: manual
   only:
     - master
