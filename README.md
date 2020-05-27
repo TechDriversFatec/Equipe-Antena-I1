@@ -29,6 +29,8 @@ Com base no código gerado em Padrões de Projeto onde foi utilizado com framewo
 Pensando nisso, realizamos a refatoração do código no framework [Spring Boot](https://spring.io/projects/spring-boot), até o momento foi [reestruturado as rotas](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/15 "Link para Issue") e [implementado os requisitos de segurança da API](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/16 "Link para Issue") (Filter de requisição, Cookie, Token JWT) Baseado no Spring Boot Security.
 \
 \
+Para controle de versão de release foi implementado o plugin Maven Release Plugin. Onde o plugin do Maven possibilita o incremento automático do número de versão do projeto sempre que uma nova release for lançada. [Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/7).  
+\
 O pipeline de CI/CD também foi adaptado para a utilização do framework Spring Boot e a ferramenta de gerenciamento de projetos [Apache Maven](https://maven.apache.org/). [Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/17).
 
 ## Testes
