@@ -62,7 +62,7 @@ deploy:
   <<: *prod_deploy
   stage: deploy
   tags:
-    - cluster
+    - deploy2
   when: manual
   only:
     - master
