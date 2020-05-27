@@ -1,10 +1,10 @@
 # Projeto Antenas
 
-- Jean Pierro
-- Jéssica Rosado
-- Marcelo Teixeira
-- Rodrigo Prado
-- Rone Bento
+- [Jean Pierro](https://gitlab.com/JeanLPierro)
+- [Jéssica Rosado](https://gitlab.com/jesscahelen/)
+- [Marcelo Teixeira](https://gitlab.com/marcelofsteixeira)
+- [Rodrigo Prado](https://gitlab.com/RodrigoPradoDaSilva)
+- [Rone Bento](https://gitlab.com/ronefb)
 
 ## Entregas
 Issues da primeira entrega:\
