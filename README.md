@@ -93,3 +93,8 @@ E está disponível para consulta: [Sonarqube Cloud - Projeto Antenas](https://s
 ## Scouter
 
 Para a análise de app será utilizada a [Scouter](https://github.com/scouter-project/scouter), ferramenta Open Source compatível com Java,  e que cumpre os requisitos de monitoramento de comportamento e estatisticas da aplicação (uso de recurso de sistemas, logs de acesso ao servidor da aplicação, entre outras métricas de análise).[Link para Issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/11)
+
+## Configuration
+
+O Processo de configuração automatica do GitLab Runner, possibilitou implementar trabalhos simultaneos, 
+instalações automáticas das imagens no google cloud, execução de comando no shell para instalação de programas e criação de cluster kubernets.
