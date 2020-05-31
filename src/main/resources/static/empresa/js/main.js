@@ -189,7 +189,6 @@
 
     Fetch.post("/projeto/save", projeto).then(() => {
       console.log(projeto)
-      location.reload();
       /*const $form = document.getElementById("formulario");
       $form.reset();
       carregarTarefas();*/

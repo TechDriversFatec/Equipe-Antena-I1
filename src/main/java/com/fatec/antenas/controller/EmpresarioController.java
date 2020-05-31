@@ -59,14 +59,14 @@ public class EmpresarioController {
 		String senha = empresario.getSenha();
 		empresario.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
 		
-		return new ResponseEntity<>(empresarioDAO.save(empresario), HttpStatus.CREATED);
+		return new ResponseEntity<>(empresarioDAO.save(empresario), HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/update")
 	public ResponseEntity<?> update(@Valid @RequestBody DocumentEmpresario empresario){
 		String senha = empresario.getSenha();
 		empresario.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
-		return new ResponseEntity<>(empresarioDAO.save(empresario), HttpStatus.CREATED);
+		return new ResponseEntity<>(empresarioDAO.save(empresario), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/all")

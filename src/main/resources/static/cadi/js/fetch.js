@@ -5,11 +5,12 @@ Fetch = {
         fetch(url)
           .then(resp => {
             if (resp.status == 401) {
-              window.location = "/empresa/painel";
+              window.location = "/";
             } else if (resp.status !== 200) {
               reject("Não foi possível executar a operação.");
             } else {
               resp.json().then(dados => resolve(dados));
+            
             }
           })
           .catch(_ => {
@@ -29,11 +30,12 @@ Fetch = {
         })
         .then(resp => {
           if (resp.status == 401) {
-            window.location = "/empresa/painel";
+            window.location = "/";
           } else if (resp.status !== 200) {
             reject("Não foi possível executar a operação.");
           } else {
             resolve();
+            location.reload()
           }
         })
         .catch(_ => {

@@ -240,7 +240,7 @@
                 $submit.click(function(){
                   project.responsavelCadi = cadi.email;
                   Fetch.post("/projeto/update", project).then(() => {
-                    location.reload();
+                    console.log(project)
                   });
                 });
   

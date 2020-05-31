@@ -48,12 +48,12 @@ public class CadiController {
 		verifyIfCadiExistsEmail(cadi.getEmail());
 		String senha = cadi.getSenha();
 		cadi.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
-		return new ResponseEntity<>(cadiDAO.save(cadi), HttpStatus.CREATED);
+		return new ResponseEntity<>(cadiDAO.save(cadi), HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/update")
 	public ResponseEntity<?> update(@Valid @RequestBody DocumentCadi cadi){
-		return new ResponseEntity<>(cadiDAO.save(cadi), HttpStatus.CREATED);
+		return new ResponseEntity<>(cadiDAO.save(cadi), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/all")

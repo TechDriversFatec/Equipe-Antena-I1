@@ -72,7 +72,7 @@ var Timeline = function (endpoint) {
             };
 
             Fetch.post(endpoint, newProject).then(() => {
-              location.reload();
+              console.log(newProject)
             });
           }
         }
@@ -92,7 +92,7 @@ var Timeline = function (endpoint) {
             };
 
             Fetch.post(endpoint, newProject).then(() => {
-              location.reload();
+              console.log(newProject)
             });
           }
         }

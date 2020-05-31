@@ -28,19 +28,19 @@ public class ProjetoController {
 	
 	@PostMapping(path = "/save")
 	public ResponseEntity<?> save(@RequestBody DocumentProjeto projeto){
-		return new ResponseEntity<>(projetoDAO.save(projeto), HttpStatus.CREATED);
+		return new ResponseEntity<>(projetoDAO.save(projeto), HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/update")
 	public ResponseEntity<?> update(@RequestBody DocumentProjeto projeto){
-		return new ResponseEntity<>(projetoDAO.save(projeto), HttpStatus.CREATED);
+		return new ResponseEntity<>(projetoDAO.save(projeto), HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/save/reuniao/{id}")
 	public ResponseEntity<?> insertReuniao(@RequestBody Reuniao reuniao, @PathVariable String id){
 		DocumentProjeto find = projetoDAO.findById(id).get();
 		//find.setReuniao(reuniao);
-		return new ResponseEntity<>(projetoDAO.save(find), HttpStatus.CREATED);
+		return new ResponseEntity<>(projetoDAO.save(find), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/all")

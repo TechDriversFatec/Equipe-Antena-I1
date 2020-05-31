@@ -79,7 +79,7 @@ var Timeline = function (endpoint) {
       $('[aceitar-avaInit]').click(function (e) {
           projeto.fase = projeto.fase+1;
           Fetch.post("/projeto/update", projeto).then(() => {
-              location.reload();
+              console.log(projeto);
           });
       });
       
@@ -88,7 +88,7 @@ var Timeline = function (endpoint) {
           projeto.status.negado = true;
           projeto.status.motivo = rec.value;
           Fetch.post("/projeto/update", projeto).then(() => {
-            location.reload();
+            console.log(projeto);
           });
       });
       
