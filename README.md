@@ -72,7 +72,7 @@ Até o momento uma vm foi inicializada e configurada juntamente com a configura�
 
 A fase de CD do projeto passa pelos seguintes passos:
 - Download da imagem mais recente do repositório projetoantenas/antenas-integracao para um servidor hospedado no serviço Google Cloud.
-- Execução da aplicação baseada em 3 pods do Google Kubernetes Engine.(https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#step_8_deploy_a_new_version_of_your_app).[Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/6).
+- Execução da [aplicação baseada em 3 pods do Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#step_8_deploy_a_new_version_of_your_app). [Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/6).
 
 ## Database Automation - MongoDB Atlas + Mongobee
 
