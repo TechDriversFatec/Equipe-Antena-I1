@@ -114,6 +114,12 @@
  			 <version>3.0.0-M1</version>
   			 <type>maven-plugin</type>
 		 </dependency>
+
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-spring-boot-starter</artifactId>
+            <version>1.83.0</version>
+        </dependency>
 		
     </dependencies>
     
