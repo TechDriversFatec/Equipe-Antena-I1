@@ -74,14 +74,14 @@ A fase de CD do projeto passa pelos seguintes passos:
 - Download da imagem mais recente do repositório projetoantenas/antenas-integracao para um servidor hospedado no serviço Google Cloud.
 - Execução da [aplicação baseada em 3 pods do Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#step_8_deploy_a_new_version_of_your_app). [Link para a issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/6).
 
-## Database Automation - MongoDB Atlas + Mongobee
+## Database Automation - MongoDB Atlas + Mongock
 
 Para o banco de dados, utilizaremos o [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), para ter uma segurança a mais que o banco de dados estará disponível, já que estará na Cloud do MongoDB, facilitando também o acesso dos integrantes da equipe e não sobrecarregando menos a máquina virtual em que o aplicativo estará disponível. [Link para Issue](https://gitlab.com/jesscahelen/antenas-integracao/-/issues/4).
 \
 No momento o banco está mapeado para testes e para produção, falta verificar sobre backup nessa interface em específico.
 
-Em consonância, realizaremos uma implementação do MongoBee, afim de gerenciar alterações do MongoDB e definição de versões do mesmo. 
-O MongoBee possui integração com SpringBoot.
+Em consonância, realizaremos uma implementação do [Mongock](https://github.com/cloudyrock/mongock), afim de gerenciar alterações do MongoDB e definição de versões do mesmo. 
+O MongoCk possui integração com SpringBoot e com o Atlas.
 
 
 ## Sonarqube Cloud
