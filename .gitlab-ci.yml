@@ -6,6 +6,7 @@ stages:
     - build
     - create-image
     - deploy
+    - release
     
 variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
@@ -83,6 +84,15 @@ sonarcloud-check:
   only:
     - merge_requests
     - master
+
+release:
+  stage: release
+  script: 
+    - mvn release:prepare --settings .ci/settings.xml -B -DskipTests=true
+  when: manual
+  only:
+  - master
+
 
 
 
