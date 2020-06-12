@@ -87,6 +87,8 @@ sonarcloud-check:
 
 release:
   stage: release
+  tags:
+    - deploy
   script: 
     - mvn release:clean release:prepare -DskipTests=true
   when: manual
