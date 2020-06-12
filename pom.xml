@@ -27,6 +27,33 @@
         <sonar.organization>jesscahelen</sonar.organization>
     </properties>
 
+     <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile.id>dev</build.profile.id>
+                <profileActive>dev</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <build.profile.id>test</build.profile.id>
+                <profileActive>test</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <build.profile.id>prod</build.profile.id>
+                <profileActive>prod</profileActive>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
     	<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -81,6 +108,16 @@
 		    <artifactId>spring-security-crypto</artifactId>
 		    <version>3.1.0.RELEASE</version>
 		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/com.github.cloudyrock.mongock/mongock-spring -->
+		<dependency>
+		    <groupId>com.github.cloudyrock.mongock</groupId>
+		    <artifactId>mongock-spring</artifactId>
+		    <version>3.3.2</version>
+		</dependency>
+
+
+		
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

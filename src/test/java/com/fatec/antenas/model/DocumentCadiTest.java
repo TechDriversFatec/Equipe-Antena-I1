@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
@@ -18,7 +18,8 @@ public class DocumentCadiTest {
 
     @Autowired
     private CadiRepository cadiDAO;
-
+    
+    @Profile("test")
     @Test
     public void testeDocumentCadi (){
         Assert.assertEquals(cadiDAO.findByEmail("teste@teste.com"), null);
