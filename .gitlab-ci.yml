@@ -90,7 +90,7 @@ release:
   tags:
     - deploy
   script: 
-    - mvn release:clean release:prepare -DskipTests=true
+    - mvn release:clean release:prepare -B -DskipTests=true
   when: manual
   only:
   - master
