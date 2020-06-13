@@ -90,8 +90,8 @@ release:
   tags:
     - deploy
   script:
-    - git checkout master 
-    - git pull
+    - git clone https://gitlab.com/jesscahelen/antenas-integracao.git
+    - cd antenas-integracao
     - mvn -B release:clean release:prepare
   when: manual
   only:
