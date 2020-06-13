@@ -91,13 +91,7 @@ release:
     - deploy
   script: 
     - git checkout -B "$CI_BUILD_REF_NAME"  
-    - mvn release:clean release:prepare -B -DskipTests=true
+    - mvn -B release:clean release:prepare
   when: manual
   only:
   - master
-
-
-
-
-
-  
