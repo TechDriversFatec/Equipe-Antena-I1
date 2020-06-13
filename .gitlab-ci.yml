@@ -91,6 +91,7 @@ release:
     - deploy
   script:
     - git checkout master 
+    - git pull
     - mvn -B release:clean release:prepare
   when: manual
   only:
