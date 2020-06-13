@@ -15,7 +15,7 @@
     
     <scm>
         <url>https://gitlab.com/jesscahelen/antenas-integracao</url>
-		<connection>scm:git:https://gitlab.com/jesscahelen/antenas-integracao</connection>
+		<connection>scm:git:git@gitlab.com:jesscahelen/antenas-integracao.git</connection>
       <tag>HEAD</tag>
   </scm>  
 
