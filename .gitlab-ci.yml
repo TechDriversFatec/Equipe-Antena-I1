@@ -89,6 +89,8 @@ release:
   stage: release
   tags:
     - deploy
+  before_script:
+    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.example.com/group/repo.git".insteadOf git@gitlab.example.com:group/repo.git
   script:
     - grep '<version>0.0.' pom.xml    
     - git config --global user.email "${CI_EMAIL}"
