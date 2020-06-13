@@ -90,8 +90,6 @@ release:
   tags:
     - deploy
   script:
-    - cd antenas-integracao
-    - git pull 
     - mvn -B release:clean release:prepare
   when: manual
   only:
