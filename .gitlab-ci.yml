@@ -93,6 +93,7 @@ release:
     - git config --global user.email "${CI_EMAIL}"
     - git config --global user.name "${CI_USERNAME}"
     - git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com/"
+    - git checkout master 
     - mvn -B release:clean release:prepare
   when: manual
   only:
