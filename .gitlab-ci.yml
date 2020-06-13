@@ -90,6 +90,8 @@ release:
   tags:
     - deploy
   script:
+    - git config --global user.email "${CI_EMAIL}"
+    - git config --global user.name "${CI_USERNAME}"
     - git clone https://gitlab.com/jesscahelen/antenas-integracao.git
     - cd antenas-integracao
     - mvn -B release:clean release:prepare
