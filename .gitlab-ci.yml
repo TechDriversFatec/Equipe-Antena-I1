@@ -89,8 +89,9 @@ release:
   stage: release
   tags:
     - deploy
-  script: 
-    - git checkout -B "$CI_BUILD_REF_NAME"  
+  script:
+    - cd antenas-integracao
+    - git pull 
     - mvn -B release:clean release:prepare
   when: manual
   only:
