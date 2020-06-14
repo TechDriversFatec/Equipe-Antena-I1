@@ -96,7 +96,6 @@ release:
   script:
     #- git clone https://Releaser-ci:${CI_JOB_TOKEN}@gitlab.com/jesscahelen/antenas-integracao.git
     #- cd antenas-integracao
-    - cd /home/gitlab-runner/builds/LzWvuSi4/0/jesscahelen/antenas-integracao/antenas-integracao
     
     - grep '<version>0.0.' pom.xml    
     - git config --global user.email "${CI_EMAIL}"
