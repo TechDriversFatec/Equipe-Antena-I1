@@ -94,8 +94,10 @@ release:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.example.com/group/repo.git".insteadOf git@gitlab.example.com:group/repo.git
   script:
-    - git clone https://Releaser-ci:${CI_JOB_TOKEN}@gitlab.com/jesscahelen/antenas-integracao.git
-    - cd antenas-integracao
+    #- git clone https://Releaser-ci:${CI_JOB_TOKEN}@gitlab.com/jesscahelen/antenas-integracao.git
+    #- cd antenas-integracao
+    - cd /home/gitlab-runner/builds/LzWvuSi4/0/jesscahelen/antenas-integracao/antenas-integracao
+    
     - grep '<version>0.0.' pom.xml    
     - git config --global user.email "${CI_EMAIL}"
     - git config --global user.name "${CI_USERNAME}"
