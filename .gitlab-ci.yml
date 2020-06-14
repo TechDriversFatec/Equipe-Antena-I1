@@ -94,8 +94,9 @@ release:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.example.com/group/repo.git".insteadOf git@gitlab.example.com:group/repo.git
   script:
-    - pwd
-    - git clone https://Releaser-ci:${CI_JOB_TOKEN}@gitlab.com/jesscahelen/antenas-integracao.git
+    #- pwd
+    #- git clone https://Releaser-ci:${CI_JOB_TOKEN}@gitlab.com/jesscahelen/antenas-integracao.git
+    - cd
     - cd antenas-integracao    
     - grep '<version>0.0.' pom.xml    
     - git config --global user.email "${CI_EMAIL}"
