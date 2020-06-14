@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.fatec.antenas</groupId>
     <artifactId>antenas</artifactId>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.0.7</version>
     <name>antenas</name>
     <description>Aplicação Fatec </description>
     
@@ -17,7 +17,7 @@
         <url>https://gitlab.com/jesscahelen/antenas-integracao</url>
         <connection>scm:git:git@gitlab.com:jesscahelen/antenas-integracao.git</connection>
         <developerConnection>scm:git:git@gitlab.com:jesscahelen/antenas-integracao.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>antenas-0.0.7</tag>
     </scm>
 
     <properties>
