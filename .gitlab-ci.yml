@@ -101,7 +101,8 @@ release:
     - git config --global user.name "${CI_USERNAME}"
     - git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com/"
     - git checkout master 
-    - mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare
+    #- mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare
+    - mvn -B -DskipTests -Darguments=-DskipTests release:prepare release:perform -DpushChanges=false
   when: manual
   only:
   - master
