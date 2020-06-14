@@ -57,10 +57,15 @@ create-image:
   image: google/cloud-sdk
   script:
     #- gcloud container clusters get-credentials cluster-antenas-gke --zone southamerica-east1-a --project united-monument-269917
-    - kubectl create deployment $NOME_SERVICO --image=projetoantenas/antenas-integracao:latest
+    #- kubectl create deployment $NOME_SERVICO --image=projetoantenas/antenas-integracao:latest
+    #- kubectl get pods
+    #- kubectl expose deployment $NOME_SERVICO --type=LoadBalancer --port 80 --target-port 8080
+    #- kubectl get service
+    - kubectl get deployment $NOME_SERVICO
+    - kubectl scale deployment $NOME_SERVICO --replicas=3
+    - kubectl get deployment $NOME_SERVICO
     - kubectl get pods
-    - kubectl expose deployment $NOME_SERVICO --type=LoadBalancer --port 80 --target-port 8080
-    - kubectl get service
+    - kubectl set image deployment/$NOME_SERVICO antenas-integracao=projetoantenas/antenas-integracao:latest
 
 deploy:
   <<: *prod_deploy
