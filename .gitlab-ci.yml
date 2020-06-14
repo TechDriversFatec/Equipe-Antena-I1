@@ -107,6 +107,7 @@ release:
   - master
   
 release2:
+  stage: release2
   image: java:8u102-jdk
   script:
     # Install ssh-agent if not already installed, it is required by Docker.
@@ -127,7 +128,8 @@ release2:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - git checkout -B "$CI_BUILD_REF_NAME"  
     - mvn release:prepare --settings .ci/settings.xml -B -DskipTests=true
-    - mvn release:perform --settings .ci/settings.xml -B -DskipTests=true    
+    - mvn release:perform --settings .ci/settings.xml -B -DskipTests=true
+  when: manual
   only:
     - master
   
