@@ -96,6 +96,7 @@ release:
   script:
     - pwd
     - sudo git clone https://Releaser-ci:${CI_JOB_TOKEN}@gitlab.com/jesscahelen/antenas-integracao.git
+    - cd antenas-integraca/
     #- cd antenas-integracao    
     - grep '<version>0.0.' pom.xml    
     - git config --global user.email "${CI_EMAIL}"
