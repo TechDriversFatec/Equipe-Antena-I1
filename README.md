@@ -72,5 +72,6 @@ Entre as principais tecnologias utilizadas no sistema estão:
 
 - Análise de performance da aplicação com a ferramenta [JavaMelody](https://github.com/javamelody/javamelody/wiki) e monitoramento de qualidade do código pela ferramenta [SonarCube Cloud](https://www.sonarqube.org/).
 
+![DEVOPS_Arctetura](/uploads/6473cc4b02f5602ad7788e6e767afc3e/DEVOPS_Arctetura.jpg)
 
 Para detalhes das tecnologias do sistema, acesse nossa [Wiki](https://gitlab.com/jesscahelen/antenas-integracao/-/wikis/home).
