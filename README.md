@@ -70,7 +70,7 @@ Entre as principais tecnologias utilizadas no sistema estão:
 
 - Ciclos de CI e CD implementados pela plataforma [GitLab](https://about.gitlab.com/). 
 
-- Análise de performance da aplicação com a ferramenta [JavaMelody](https://github.com/javamelody/javamelody/wiki) e monitoramento de qualidade do código pela ferramenta [SonarCube Cloud](https://www.sonarqube.org/).
+- Análise de performance da aplicação com a ferramenta [JavaMelody](https://github.com/javamelody/javamelody/wiki) e monitoramento de qualidade do código pela ferramenta [SonarCube Cloud](https://www.sonarqube.org/). Acesse o relatório de qualidade de código do projeto neste [link](https://sonarcloud.io/dashboard?id=jesscahelen_antenas-integracao).
 
 ![DEVOPS_Arctetura](/uploads/6473cc4b02f5602ad7788e6e767afc3e/DEVOPS_Arctetura.jpg)
 
