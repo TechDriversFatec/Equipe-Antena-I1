@@ -49,7 +49,7 @@ Em resumo, as 6 fases de um projeto no sistema Antenas são compostas pelos segu
 ![Projeto](https://gitlab.com/jesscahelen/antenas-integracao/uploads/e007f1f61bc292170fb75021de1701f2/image.png)
 
 # Acesso ao sistema
-Acesse uma versão de demonstração do sistema Antenas no link: [Link]
+Acesse uma versão de demonstração do sistema Antenas em: [link](http://34.95.208.245/).
 
 ### Teste a aplicação
 Para testar uma versão do projeto em um ambiente local, clone o projeto para uma máquina com ambiente JDK e gerenciador de projeto Maven instalados e rode os seguintes comandos no diretório do projeto:
