@@ -58,6 +58,21 @@ public class ProjetoController {
 		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(responsavelCadi), HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "/byprofessor/{responsavelProfessor}")
+	public ResponseEntity<?> listProjectByProfessor(@PathVariable String responsavelProfessor){
+		return new ResponseEntity<>(projetoDAO.findByresponsavelProfessor(responsavelProfessor), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "/bychave/{chave}")
+	public ResponseEntity<?> listProjectByChave(@PathVariable String chave){
+		return new ResponseEntity<>(projetoDAO.findBychave(chave), HttpStatus.OK);
+	}
+	/*
+	@GetMapping(path = "/byaluno/{aluno}")
+	public ResponseEntity<?> listProjectByAluno(@PathVariable String responsavelCadi){
+		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(responsavelCadi), HttpStatus.OK);
+	}*/
+	
 	@GetMapping(path = "/byNotExistsCadi")
 	public ResponseEntity<?> listProjectNotExistsCadi(){
 		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(""), HttpStatus.OK);

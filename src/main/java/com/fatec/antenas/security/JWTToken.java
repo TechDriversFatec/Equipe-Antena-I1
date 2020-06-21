@@ -34,7 +34,7 @@ public class JWTToken {
 			Cookie cookie = new Cookie("token", jwt);
 			cookie.setPath("/");
 	        cookie.setHttpOnly(true);
-	        cookie.setMaxAge(60 * 30); // 30 minutos
+	        cookie.setMaxAge(60 * 60); // 30 minutos
 	        response.addCookie(cookie);
 
 	        

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +69,11 @@ public class AlunoController {
 	@GetMapping(path = "byEmail/{email}")
 	public ResponseEntity<?> getalunoByEmail(@PathVariable String email){
 		return new ResponseEntity<>(alunoDAO.findByEmail(email), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "/byID")
+	public ResponseEntity<?> getEmpresarioByID(@RequestAttribute("idUsuarioLogado") String idUsuarioLogado){
+		return new ResponseEntity<>(alunoDAO.findById(idUsuarioLogado), HttpStatus.OK);
 	}
 	
 	private void verifyIfAlunoExistsID(String id) {

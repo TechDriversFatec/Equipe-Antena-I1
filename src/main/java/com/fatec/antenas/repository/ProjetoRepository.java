@@ -10,4 +10,6 @@ import com.fatec.antenas.model.DocumentProjeto;
 public interface ProjetoRepository extends MongoRepository<DocumentProjeto, String>{
 	List<DocumentProjeto> findByresponsavelCadi(String responsavelCadi);
 	List<DocumentProjeto> findByresponsavelEmpresario(String responsavelEmpresario);
+	List<DocumentProjeto> findByresponsavelProfessor(String responsavelProfessor);
+	List<DocumentProjeto> findBychave(String chave);
 }

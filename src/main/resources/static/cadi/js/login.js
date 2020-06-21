@@ -69,5 +69,7 @@ function abrePopupCadastro(event) {
 function fechaPopupCadastro(event) {
     event.preventDefault();
     document.getElementById('cadastro').style.display='none';    
+
+    
 }
 

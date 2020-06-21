@@ -1,34 +1,26 @@
-/**/
-var session_login = sessionStorage.getItem("sess_email_professor");
-
-
-if(session_login == null){
-        window.location.href = 'index.html';
-}else{
-
-  $(document).ready(function () {
+$(document).ready(function () {
       let projects;
     
 /* Informações do Usuário Professor */
-      $.post("/professorLogado", JSON.stringify({'email': session_login}), function(user){
-        userData(user);
-      }, "json");
- 
-    
-/* </> Informações do Usuário Professor */
 
+      Fetch.get(`/professor/byID`).then(professor => {
+        console.log(professor);
 
        /* <> Rotas de inicialização dos objetos */
-      $.get('/myprojects', session_login)
-          .done(function(projetos){
-          projects = JSON.parse(projetos);
-          insertMyProjects(projects);
+        Fetch.get(`/projeto/byprofessor/${professor.email}`).then(projetos => {
+          console.log(projetos);
+          insertMyProjects(projetos);
+        });
+         /* </> Rotas de inicialização dos objetos */
       });
+
+
+     
       
-       /* </> Rotas de inicialização dos objetos */
+      
 
       /* <> Funções */
-    
+      
       /* listagem de projetos do professor */
       function insertMyProjects(projecs) {
         
@@ -36,11 +28,11 @@ if(session_login == null){
         let tbody = $('[data-myProjects-table-body]');
     
         projecs.forEach(project => {
-          let project_id = project._id.$oid;
+          let project_id = project._id;
           let tr2 = $.parseHTML(`<tr data-project-item="${ project._id }> 
             <th scope="row">${ project.titulo }</th>
                 <td>${ project.titulo }</td>
-                <td>${ project['descricao-breve'] }</td>
+                <td>${ project['descricaoBreve'] }</td>
                 <td>Nome da Empresa</td>
                 <td id="td-key">${project['chave'] != null ? project['chave'] : '<input type="text" class="form-control" id="keyAlId-'+project_id+'" name="key_al" placeholder="Inserir Chave">'}<td>
                 <td id="td-alkey-${project_id}"></td>
@@ -68,8 +60,10 @@ if(session_login == null){
               var myKey = $('#keyAlId-'+project_id).val();
             
               if (confirm('Deseja realmente alterar o chave dos alunos ?')) {
-                $.post("/updateProjetoProfessor", JSON.stringify({'_id':project._id, 'chave': myKey}), "json");
-                location.reload();
+                project.chave = myKey;
+                Fetch.post("/projeto/update", project).then(() => {
+                  console.log(project)
+                });
               }
             });
   
@@ -80,10 +74,11 @@ if(session_login == null){
             let $removeKey = $(removeKey);
             $removeKey.click(function(e){
               e.preventDefault();
-              var myKey = null;
               if (confirm('Deseja realmente alterar o chave dos alunos ?')) {
-                $.post("/updateProjetoProfessor", JSON.stringify({'_id':project._id, 'chave': myKey}), "json");
-                location.reload();
+                project.chave= null;
+                Fetch.post("/projeto/update", project).then(() => {
+                  console.log(project)
+                });
               }
             });
   
@@ -161,8 +156,6 @@ function userData(user){
 
   
 });
-
-}
 
 
 

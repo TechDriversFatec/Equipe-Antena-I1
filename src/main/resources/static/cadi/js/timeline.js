@@ -91,7 +91,31 @@ var Timeline = function (endpoint) {
             console.log(projeto);
           });
       });
-      
+
+    /*reunião */
+        $("#insere-data").click(function () {   
+          var data = $("#dataReuniao").val();
+          var hora = $("#horaReuniao").val();
+          var local = $("#localReuniao").val();
+          var assunto = $("#assuntoReuniao").val();
+          console.log(hora)
+          alert("boa")
+          console.log(projeto.reuniao)
+          
+          var professores = [];
+          $.each($(".country-professor option:selected"), function(){            
+            professores.push($(this).val());
+          });
+          projeto.reuniao = {"data":data,"horario":hora,"local":local, "assunto":assunto}
+          projeto.responsavelProfessor = professores;
+          projeto.fase = projeto.fase+1;
+          Fetch.post("/projeto/update", projeto).then(() => {
+            console.log(project)
+
+          });
+            
+        });
+
     }
   }
 
@@ -189,85 +213,20 @@ var Timeline = function (endpoint) {
         <label for="formGroupInserirReunião">Insira data para reunião:</label>
         <input type="date"  class="form-control" name="date" id="dataReuniao">
         <label for="formGroupInserirReunião">Insira um horário para reunião:</label>
-        <input type="time"  class="form-control" name="hora" id="horaReuniao">
+        <input type="time"  class="form-control" name="horario" id="horaReuniao">
         <label for="formGroupInserirReunião">Insira um local para reunião:</label>
         <input type="text"  class="form-control" name="local" id="localReuniao">
         <span class="validity"></span>
+        <label for="formGroupInserirReunião">Insira um assunto a ser tratado</label>
+        <input type="text"  class="form-control" name="assunto" id="assuntoReuniao">
         <br>
-        <button type="button" class="btn btn-success" id="insere-data" name="insere-data">Inserir</button>
+        
       </div>
         <script>
+           $(".modal-footer").remove();
        
-       		 var datas = [];
-      		 var linhas = [];
-             var ind = 0;
-             var cont = 0;
-             var data = $('#dataReuniao');
-             var hora = $('#horaReuniao');
-             var local = $('#localReuniao');
-            $("#insere-data").click(function () {           
-              var index = datas.length;
-              //var linha = data.val().toString()+" "+hora.val().toString()+" "+local.val().toString();
-              //linhas.push(linha);
-              var linha = new Object();
-              linha.data = data.val().toString();
-              linha.hora = hora.val().toString();
-              linha.local = local.val().toString();
-              
-              linhas.push(linha);
-              datas.push(linhas[cont]);
-      		  cont++;
-      		  console.log(linhas);
-      		  console.log(datas);
-              var linhadata = "<tr><td>"+data.val().toString()+"</td><td>"+hora.val().toString()+"</td><td>"+local.val().toString()+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+index+"'>×</input></td></tr>";
-              
-              $("#tabdata").append(linhadata);  
-              var x = document.getElementById('test').getAttribute('remove-data');
-              console.log(x);
-           		               
-            });
-            $(document).on("click", ".botao-remove-data", function(event){
-      			var idDataRem = this.getAttribute('remove-data');
-      			datas.splice(idDataRem, 1);
-      			console.log(datas);
-      			$("#tabdata").empty();
-      			ind = 0;
-      			datas.forEach(adcData);
-      		});
-            function adcData(data1){
-            		console.log(data1);
-            		/*var d = data1.slice(0, 10);
-            		var h = data1.slice(11, 16);
-            		var l = data1.slice(17, 20);*/
-      				var linhadata2 = "<tr><td>"+data1.data+"</td><td>"+data1.hora+"</td><td>"+data1.local+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+ind+"'>×</input></td></tr>";
-              		$("#tabdata").append(linhadata2);
-              		ind++;
-            }
-        </script>
-        <label for="data-reuniao">Datas possiveis a reunião:</label>
 
-        <table class="table table-hover" style="text-align:center;">
-                  
-              <thead>
-              <tr>
-              <td scope="col">Data</th>
-              <td scope="col">Horário</th>
-              <td scope="col">Local</th>
-              <td scope="col">Remover</th>
-              </tr>
-              </thead>
-              <!-- Popula a tabela com base no JS-->
-              <tbody id="tabdata" ></tbody>
-        </table>
-          <!--criar script para popular array, EX.: dropdown de profs-->
-        <div class="form-group">
-        <label for="formGroupInserirEntrega">Insira data esperada de entrega do projeto:</label>
-        <input type="date" class="form-control" id="formGroupInserirEntrega" min="2019-10-14">
-        <br/>
-        <label for="professores">Selecione os Professores:</label>
-            </div> 
-        <span class="validity"></span>
-           	<script>
+          
            	
            	var profs = [];
            	  $(document).ready(function () {
@@ -283,15 +242,17 @@ var Timeline = function (endpoint) {
 				        });
 				      });
 			      </script>
-              <select multiple class="form-control" id="professor">
+              <select multiple class="form-control country-professor" id="professor">
               </select>
             </div>      
-            <!--  <button type="submit" class="btn btn-success" data-dismiss="modal">Designar</button> --!>
+            <button type="button" class="btn btn-success" id="insere-data" name="insere-data">Inserir</button>
         </form>
      
       `;
     }
-
+    function insertReuniao(){
+      
+    }
     function _getEntregasHTML() {
       return `
         ${projeto.fase == 6 ? '<span class="badge badge-success">Concluído</span>' : '<span class="badge badge-danger">Pendente</span>'}
@@ -385,7 +346,7 @@ var Timeline = function (endpoint) {
         icon: _getIcon(''),
         title: 'Reunião',
         isActive: projeto.fase > 4,
-        isPending: projeto.fase == 4 && !projeto.reuniao['datasPossiveis'].length,
+        isPending: projeto.fase == 4 ,
         isWaitingForInput: projeto.fase == 4 //projeto.fase == 4 && projeto.reuniao['datas-possiveis'].length
       }, 
       {
