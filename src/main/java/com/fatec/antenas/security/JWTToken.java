@@ -15,21 +15,35 @@ import com.fatec.antenas.model.Usuario;
 
 @Component
 public class JWTToken {
+		private String hmac256 = "Antenas@2020";
+		private String idUsoJwt = "idUsuarioLogado";
+		public boolean jwtEmpresario(HttpServletResponse response, Usuario find, Usuario usuario) {
+			return jwtGenerate(response, find, usuario, idUsoJwt, hmac256) ;
+		}
+		
+		public boolean jwtCadi(HttpServletResponse response, Usuario find, Usuario usuario) {
+			return jwtGenerate(response, find, usuario, idUsoJwt, hmac256) ;
+		}
+		public boolean jwtAluno(HttpServletResponse response, Usuario find, Usuario usuario) {
+			return jwtGenerate(response, find, usuario, idUsoJwt, hmac256) ;
+		}
+		public boolean jwtProfessor(HttpServletResponse response, Usuario find, Usuario usuario) {
+			return jwtGenerate(response, find, usuario, idUsoJwt, hmac256) ;
+		}
 	
-		public boolean jwtGenerate(HttpServletResponse response, Usuario find, Usuario empresario) {
+		private boolean jwtGenerate(HttpServletResponse response, Usuario find, Usuario usuario, String idUsoJwt, String hmac256) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			if(find == null) {
 				
 				throw new CredentialNotFoundException("User not Found ");
 			}
-			
-			if(!passwordEncoder.matches(empresario.getSenha(), find.getSenha())) {
+			if(!passwordEncoder.matches(usuario.getSenha(), find.getSenha())) {
 				throw new CredentialNotFoundException("User not Found ");
 			}
 			
 			String jwt = JWT.create()
-	                .withClaim("idUsuarioLogado", find.get_id())
-	                .sign(Algorithm.HMAC256("Emp@2020"));
+	                .withClaim(idUsoJwt, find.get_id())
+	                .sign(Algorithm.HMAC256(hmac256));
 			
 			Cookie cookie = new Cookie("token", jwt);
 			cookie.setPath("/");

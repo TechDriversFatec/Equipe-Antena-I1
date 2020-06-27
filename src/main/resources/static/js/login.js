@@ -22,10 +22,10 @@ function loginEmpresario() {
     email: document.getElementsByName("email-login-emp")[0].value,
     senha: document.getElementsByName("senha-login-emp")[0].value
   };
-  Fetch.post('/empresario/login', data)
+  Fetch.post('/empresario/pub/login', data)
     .then(() => {
       
-     window.location = "/empresa/painel";
+     window.location = "/empresario/painel";
       localStorage.setItem('email', data.email);
     })
     .catch(_ => {
@@ -38,7 +38,7 @@ function loginCadi() {
     email: document.getElementsByName("email-login-cadi")[0].value,
     senha: document.getElementsByName("senha-login-cadi")[0].value
   };
-  Fetch.post('/cadi/login', data)
+  Fetch.post('/cadi/pub/login', data)
     .then(() => {
       
      window.location = "/cadi/painel";
@@ -54,7 +54,7 @@ function loginAluno() {
     email: document.getElementsByName("email-login-alu")[0].value,
     senha: document.getElementsByName("senha-login-alu")[0].value
   };
-  Fetch.post('/aluno/login', data)
+  Fetch.post('/aluno/pub/login', data)
     .then(() => {
       
      window.location = "/aluno/painel";
@@ -69,7 +69,7 @@ function loginProfessor() {
     email: document.getElementsByName("email-login-prof")[0].value,
     senha: document.getElementsByName("senha-login-prof")[0].value
   };
-  Fetch.post('/professor/login', data)
+  Fetch.post('/professor/pub/login', data)
     .then(() => {
       
      window.location = "/professor/painel";

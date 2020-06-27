@@ -23,7 +23,7 @@ public class DocumentProjeto {
 	private Integer fase;
 	private Reuniao reuniao;
 	private Status status;
-	private Set<String> entregas = new HashSet<String>();
+	private Set<Entregas> entregas = new HashSet<Entregas>();
 	private String responsavelCadi;
 	private String responsavelEmpresario;
 	private Set<String> responsavelProfessor = new HashSet<String>();
@@ -36,25 +36,10 @@ public class DocumentProjeto {
 		super();
 	}
 	
-	public DocumentProjeto(String titulo, String descricaoBreve, String descricaoCompleta, String descricaoTecnologica,
-			String linkExterno1, String linkExterno2, Integer fase, Status status, String responsavelEmpresario) {
-		super();
-		this.titulo = titulo;
-		this.descricaoBreve = descricaoBreve;
-		this.descricaoCompleta = descricaoCompleta;
-		this.descricaoTecnologica = descricaoTecnologica;
-		this.linkExterno1 = linkExterno1;
-		this.linkExterno2 = linkExterno2;
-		this.fase = fase;
-		this.status = status;
-		this.responsavelEmpresario = responsavelEmpresario;
-		this.responsavelCadi = null;
-		
-	}	
-
+	
 	public DocumentProjeto(String _id, String chave, String titulo, String descricaoBreve, String descricaoCompleta,
 			String descricaoTecnologica, String linkExterno1, String linkExterno2, Integer fase, Reuniao reuniao,
-			Status status, Set<String> entregas, String responsavelCadi, String responsavelEmpresario,
+			Status status, Set<Entregas> entregas, String responsavelCadi, String responsavelEmpresario,
 			Set<String> responsavelProfessor, Set<String> alunos) {
 		super();
 		this._id = _id;
@@ -75,11 +60,11 @@ public class DocumentProjeto {
 		this.alunos = alunos;
 	}
 
-	public Set<String> getEntregas() {
+	public Set<Entregas> getEntregas() {
 		return entregas;
 	}
 
-	public void setEntregas(Set<String> entregas) {
+	public void setEntregas(Set<Entregas> entregas) {
 		this.entregas = entregas;
 	}
 

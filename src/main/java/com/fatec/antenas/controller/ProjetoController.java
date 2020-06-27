@@ -67,11 +67,11 @@ public class ProjetoController {
 	public ResponseEntity<?> listProjectByChave(@PathVariable String chave){
 		return new ResponseEntity<>(projetoDAO.findBychave(chave), HttpStatus.OK);
 	}
-	/*
+	
 	@GetMapping(path = "/byaluno/{aluno}")
-	public ResponseEntity<?> listProjectByAluno(@PathVariable String responsavelCadi){
-		return new ResponseEntity<>(projetoDAO.findByresponsavelCadi(responsavelCadi), HttpStatus.OK);
-	}*/
+	public ResponseEntity<?> listProjectByAluno(@PathVariable String aluno){
+		return new ResponseEntity<>(projetoDAO.findByalunos(aluno), HttpStatus.OK);
+	}
 	
 	@GetMapping(path = "/byNotExistsCadi")
 	public ResponseEntity<?> listProjectNotExistsCadi(){

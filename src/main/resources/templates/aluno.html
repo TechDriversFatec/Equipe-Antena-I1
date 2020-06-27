@@ -45,17 +45,17 @@
     }
 
     function validaEmailEntrega(email) {
-    let texto = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
-    if (texto.test(email)) {
-        if (email.indexOf('@fatec.sp.gov.br', email.length - '@fatec.sp.gov.br'.length) !== -1) {
-            return true;
+        let texto = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+        if (texto.test(email)) {
+            if (email.indexOf('@fatec.sp.gov.br', email.length - '@fatec.sp.gov.br'.length) !== -1) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
-    } else {
-        return false;
     }
-}
     
 </script>
  
@@ -143,7 +143,7 @@
         <label for="desc-cadastro"><b>Descrição</b></label>
         <input type="text" id="desc-cadastro" required>
 
-        <button type="button" onclick="entregar()">Entregar</button>
+        <button type="button" id="entregarProjeto">Entregar</button>
       </div>
 
     </form>

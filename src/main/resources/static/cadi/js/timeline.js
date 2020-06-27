@@ -224,9 +224,7 @@ var Timeline = function (endpoint) {
       </div>
         <script>
            $(".modal-footer").remove();
-       
-
-          
+      
            	
            	var profs = [];
            	  $(document).ready(function () {

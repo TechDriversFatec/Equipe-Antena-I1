@@ -40,25 +40,11 @@ public class FilterLogin implements Filter {
 	            return;
 	        }
 	        
-	        if (httpRequest.getServletPath().equals("/empresario/login") || httpRequest.getServletPath().equals("/empresario/save")) {
+	        if (httpRequest.getServletPath().contains("/pub/")) {
 	            chain.doFilter(request, response);
 	            return;
 	        }
-	        
-	        if (httpRequest.getServletPath().equals("/cadi/login") || httpRequest.getServletPath().equals("/cadi/save")) {
-	            chain.doFilter(request, response);
-	            return;
-	        }
-	        
-	        if (httpRequest.getServletPath().equals("/aluno/login") || httpRequest.getServletPath().equals("/aluno/save")) {
-	            chain.doFilter(request, response);
-	            return;
-	        }
-	        
-	        if (httpRequest.getServletPath().equals("/professor/login") || httpRequest.getServletPath().equals("/professor/save")) {
-	            chain.doFilter(request, response);
-	            return;
-	        }
+	       
 	     
 	        Cookie token = WebUtils.getCookie(httpRequest, "token");
 	        if (token == null) {
@@ -69,13 +55,11 @@ public class FilterLogin implements Filter {
 	        try {
 	
 	            String jwt = token.getValue();
-	
-	            DecodedJWT decodedJwt = JWT.require(Algorithm.HMAC256("Emp@2020"))
-	                    .build()
-	                    .verify(jwt);
-	
-	            String  idUsuarioLogado = decodedJwt.getClaim("idUsuarioLogado").asString();
-	            httpRequest.setAttribute("idUsuarioLogado", idUsuarioLogado);
+	          
+	            if(!httpRequest.getServletPath().contains("/pub/")) {
+	 	           decodejwt(jwt, "idUsuarioLogado", "Antenas@2020", httpRequest);
+	 	            
+	            }
 	
 	            // chamada autenticada
 	            chain.doFilter(request, response);
@@ -86,12 +70,20 @@ public class FilterLogin implements Filter {
 	        }
 	    }
 	
+		private void decodejwt(String jwt, String idJwtUsu, String hmac256, HttpServletRequest httpRequest) {
+			DecodedJWT decodedJwt = JWT.require(Algorithm.HMAC256(hmac256))
+	                    .build()
+	                    .verify(jwt);
+        	 String  idUsuarioLogado = decodedJwt.getClaim(idJwtUsu).asString();
+	            httpRequest.setAttribute(idJwtUsu, idUsuarioLogado);
+		}
 	    @Override
 	    public void init(FilterConfig filterConfig) {
 	    }
 	
 	    @Override
 	    public void destroy() {
+	    	
 	    }
 	    
 	   

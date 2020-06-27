@@ -23,6 +23,46 @@ public class Entregas {
 		this.linkCloud = linkCloud;
 		this.comentario = comentario;
 	}
+
+	public String getAlunoReponsavel() {
+		return alunoReponsavel;
+	}
+
+	public void setAlunoReponsavel(String alunoReponsavel) {
+		this.alunoReponsavel = alunoReponsavel;
+	}
+
+	public List<String> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<String> alunos) {
+		this.alunos = alunos;
+	}
+
+	public String getLinkReponsitorio() {
+		return linkReponsitorio;
+	}
+
+	public void setLinkReponsitorio(String linkReponsitorio) {
+		this.linkReponsitorio = linkReponsitorio;
+	}
+
+	public String getLinkCloud() {
+		return linkCloud;
+	}
+
+	public void setLinkCloud(String linkCloud) {
+		this.linkCloud = linkCloud;
+	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
 	
 	
 	

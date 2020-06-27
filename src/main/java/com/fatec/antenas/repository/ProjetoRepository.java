@@ -11,5 +11,6 @@ public interface ProjetoRepository extends MongoRepository<DocumentProjeto, Stri
 	List<DocumentProjeto> findByresponsavelCadi(String responsavelCadi);
 	List<DocumentProjeto> findByresponsavelEmpresario(String responsavelEmpresario);
 	List<DocumentProjeto> findByresponsavelProfessor(String responsavelProfessor);
-	List<DocumentProjeto> findBychave(String chave);
+	List<DocumentProjeto> findByalunos(String aluno);
+	DocumentProjeto findBychave(String chave);
 }

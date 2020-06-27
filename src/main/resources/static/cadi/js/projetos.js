@@ -143,14 +143,23 @@
                   }
                 }
                 else if (item.key === 'entregas' || item.key ==='responsavelProfessor') {
+                  if(item.key ==='responsavelProfessor'){
+                     project.responsavelProfessor.forEach(prof =>{
+                      console.log(prof)
+                        contentElement.append($.parseHTML(`<li>${prof}</li>`))
+                    });
+                  }
+                   
+                  
+                  //console.log(item)
                   $('#info-entregas li').remove();
                   if (!project[item.key].length) {
                     item.element.addClass('d-none');
                     return;
                   }
-                  else {
+                  else if(item.key['alunos'] != null){
                       project[item.key].forEach(x => {
-                        console.log(x);
+                        //console.log(x);
                         contentElement.append($.parseHTML(`<li class="divider list-group-item-info">Aluno Responsável: </li>
                         <li>${x['alunoResponsavel']}</li>
                         <li class="divider list-group-item-info">Alunos</li>`));

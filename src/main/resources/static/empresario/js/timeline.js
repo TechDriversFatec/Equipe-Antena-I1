@@ -149,10 +149,7 @@ var Timeline = function (endpoint) {
           <div class="form-group">
             <label for="data-reuniao">Escolha uma data para a reunião:</label>
             <select data-reuniao id="data-reuniao" class="form-control">
-              ${
-        projeto.reuniao['datasPossiveis'].map(dataHora =>
-          `<option value="${dataHora.data}-${dataHora.hora}">${dataHora.data} - ${dataHora.hora}</option>`)
-        }
+             
             </select>
           </div>
         </form>
@@ -198,6 +195,7 @@ var Timeline = function (endpoint) {
     }
 
     function _setInputPopupStructure(modelo) {
+      console.log(projeto.reuniao);
       var modeloHTML = {
         2: _getCadastroCompletoHTML(),
         4: _getReuniaoHTML(),

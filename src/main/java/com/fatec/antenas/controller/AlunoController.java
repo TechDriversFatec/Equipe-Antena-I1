@@ -31,17 +31,17 @@ public class AlunoController {
 	@Autowired
 	private AlunoRepository alunoDAO;
 	
-	@PostMapping(path = "/login")
+	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario aluno, HttpServletResponse response){
 		DocumentAluno findAluno = alunoDAO.findByEmail(aluno.getEmail());
 		
 		JWTToken jwt = new JWTToken();
-		jwt.jwtGenerate(response, findAluno, aluno);
+		jwt.jwtAluno(response, findAluno, aluno);
      
         return new ResponseEntity<>(findAluno.getEmail(), HttpStatus.OK);
 	}
 	
-	@PostMapping(path = "/save")
+	@PostMapping(path = "/pub/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentAluno aluno){
 		verifyIfAlunoExistsEmail(aluno.getEmail());
 		String senha = aluno.getSenha();

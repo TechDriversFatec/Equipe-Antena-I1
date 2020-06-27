@@ -32,18 +32,18 @@ public class CadiController {
 	@Autowired
 	private CadiRepository cadiDAO;
 	
-	@PostMapping(path = "/login")
+	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario cadi, HttpServletResponse response){
 		DocumentCadi findCadi = cadiDAO.findByEmail(cadi.getEmail());
 		
 		JWTToken jwt = new JWTToken();
-		jwt.jwtGenerate(response, findCadi, cadi);
+		jwt.jwtCadi(response, findCadi, cadi);
      
         return new ResponseEntity<>(findCadi.getEmail(), HttpStatus.OK);
 	}
 	
 	
-	@PostMapping(path = "/save")
+	@PostMapping(path = "/pub/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentCadi cadi){
 		verifyIfCadiExistsEmail(cadi.getEmail());
 		String senha = cadi.getSenha();

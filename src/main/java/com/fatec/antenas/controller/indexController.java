@@ -12,9 +12,9 @@ public class indexController {
 		return "index";
 	}
 	
-	@RequestMapping("/empresa/painel")
+	@RequestMapping("/empresario/painel")
 	public String empresarioView( @RequestAttribute("idUsuarioLogado") String idUsuarioLogado) {
-		return "empresa";
+		return "empresario";
 	}
 	
 	@RequestMapping("/cadi/painel")

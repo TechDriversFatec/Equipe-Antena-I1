@@ -208,8 +208,9 @@
   $('[data-empresario-logout]').click(function(e){
 
     e.preventDefault();
-
+ 
     localStorage.removeItem('token');
+   
     location.replace('/');
   })
 

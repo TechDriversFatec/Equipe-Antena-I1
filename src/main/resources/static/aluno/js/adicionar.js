@@ -5,55 +5,71 @@ $(document).ready(function () {
 	//let email = sessionStorage.getItem("sess_email_aluno");
 	let tela = document.querySelector('#tabela-projetos');
 	let telaemail = document.getElementById('bodyemail');
-	let rota = "/projetos"
+	let rota = "/projeto/bychave/"
 	let retorno = {}
 
 	/* Pegando os dados do aluno logado */
 	Fetch.get(`/aluno/byID`).then(aluno => {
-		console.log(aluno)
-		Fetch.get(`/projeto/byaluno/${aluno.email}`).then(projetos => {
-			console.log(projetos);
-		});
-
-	});
-
-	$.get(rota, function (projetosBE, err) {
 		
-		let projects = JSON.parse(projetosBE);
-		let wichParticipate = [];
-		for (i = 0; i < projects.length; i++) {
-			isParticipate = projects[i].alunos.find(aluno => aluno == email)
-			if (isParticipate) {
-				wichParticipate.push(i);
-			}
-		}
-		if (wichParticipate) {
-			wichParticipate.map((index) => {
-				console.log(index);
-				var $tela = document.querySelector('#tpjr'),
-					HTMLTemporario = $tela.innerHTML,
-					HTMLNovo = "<tr> <th>" + projects[index].chave + "</th>"
-						+ "<th>" + projects[index].titulo + "</th>" + "<th>"
-						+ projects[index].fase + "</th>"
-						+ `<th><button onclick="abrePopupEntregar(event,chave='${projects[index].chave}')">Entregar</button></th>`
-						+ "</tr>";
-				HTMLTemporario = HTMLTemporario + HTMLNovo;
-				$tela.innerHTML = HTMLTemporario;
-			});
-		}
-	});
+		console.log(aluno)
+		Fetch.get(`/projeto/byaluno/${aluno.email}`).then(projects => {
+			
+			$('#botao-add').click(function () {
 
-	$('#botao-add').click(function () {
-		let codigoProjeto = $("#codigo-projetoLabel").val();
-		Fetch.get(`/projeto/bychave/${codigoProjeto}`).then(projeto => {
-			projeto = {"chave":codigoProjeto};
-			console.log(projeto)
-			Fetch.post("/projeto/update", projeto).then(() => {
-			  
+				let codigoProjeto = $("#codigo-projetoLabel").val();
+				Fetch.get(`${rota+codigoProjeto}`).then(projeto => {
+					
+					projeto.alunos.push(aluno.email)
+			
+					Fetch.post("/projeto/update", projeto).then(() => {
+					  		console.log(projeto);
+					});
+				});
+		
 			});
+			if(projects != null){
+				projects.forEach(project => {
+					let tr = $.parseHTML(`<tr>
+							<th>${project['chave']}</th>
+							<th>${project['titulo']}</th>
+							<th>${project['fase']}</th>	
+							<th><button onclick="abrePopupEntregar(event,chave='${project['chave']}')">Entregar</button></th>			 
+						</tr>`);
+					$('#tpjr').append(tr);
+				});
+			}
 		});
 
+
+		$('#entregarProjeto').click(function(){
+				var chave = $('#chaveProjeto').val();
+				let alunos = [];
+				let temp = document.getElementById('myTable');
+				for (i = 1; i < temp.rows.length ; i++) {
+					let aluno = temp.rows[i].firstElementChild.outerText;
+					alunos.push(aluno);
+				}
+				let entrega = {
+					"alunoResponsavel": $('#Link-cadastro').val(),
+					"alunos": alunos,
+					"linkRepositorio": $('#Link-cadastro').val(),
+					"linkCloud": $('#Link-cloud').val(),
+					"comentario": $('#desc-cadastro').val()
+				}
+				Fetch.get(`/projeto/bychave/${chave}`).then(projeto => {
+					projeto.entregas.push(entrega);
+					console.log(projeto)
+					Fetch.post("/projeto/update", projeto).then(() => {
+						alert("Entrega realizada!");
+					});
+				});	
+				
+		})
+
 	});
+
+
+	
 
 	function abrePopupLogin(event) {
 		event.preventDefault();
@@ -64,5 +80,6 @@ $(document).ready(function () {
 		event.preventDefault();
 		document.getElementById('login').style.display = 'none';
 	}
+	
 
 });	

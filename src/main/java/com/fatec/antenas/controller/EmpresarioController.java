@@ -42,17 +42,17 @@ public class EmpresarioController {
 	@Autowired
     private EmpresarioRepository empresarioDAO;
 	
-	@PostMapping(path = "/login")
+	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario empresario, HttpServletResponse response){
 		DocumentEmpresario findEmpresario = empresarioDAO.findByEmail(empresario.getEmail());
 		
 		JWTToken jwt = new JWTToken();
-		jwt.jwtGenerate(response, findEmpresario, empresario);
+		jwt.jwtEmpresario(response, findEmpresario, empresario);
      
         return new ResponseEntity<>(findEmpresario.getEmail(), HttpStatus.OK);
 	}
 	
-	@PostMapping(path = "/save")
+	@PostMapping(path = "/pub/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentEmpresario empresario){
 		
 		verifyIfEmpresarioExistsEmail(empresario.getEmail());
@@ -87,8 +87,8 @@ public class EmpresarioController {
 	}
 	
 	@GetMapping(path = "/byID")
-	public ResponseEntity<?> getEmpresarioByID(@RequestAttribute("idUsuarioLogado") String idUsuarioLogado){
-		return new ResponseEntity<>(empresarioDAO.findById(idUsuarioLogado), HttpStatus.OK);
+	public ResponseEntity<?> getEmpresarioByID(@RequestAttribute("idUsuarioLogado") String idEmpresarioLogado){
+		return new ResponseEntity<>(empresarioDAO.findById(idEmpresarioLogado), HttpStatus.OK);
 	}
 
 

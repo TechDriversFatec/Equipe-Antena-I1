@@ -32,18 +32,18 @@ public class ProfessorController {
 	@Autowired
 	private ProfessorRepository professorDAO;
 	
-	@PostMapping(path = "/login")
+	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario professor, HttpServletResponse response){
 		DocumentProfessor findProfessor = professorDAO.findByEmail(professor.getEmail());
 		
 		JWTToken jwt = new JWTToken();
-		jwt.jwtGenerate(response, findProfessor, professor);
+		jwt.jwtProfessor(response, findProfessor, professor);
      
         return new ResponseEntity<>(findProfessor.getEmail(), HttpStatus.OK);
 	}
 	
 	
-	@PostMapping(path = "/save")
+	@PostMapping(path = "/pub/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentProfessor professor){
 		verifyIfProfessorExistsEmail(professor.getEmail());
 		String senha = professor.getSenha();
