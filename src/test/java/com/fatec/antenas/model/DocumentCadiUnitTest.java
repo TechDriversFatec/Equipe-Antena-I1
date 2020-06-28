@@ -18,7 +18,6 @@ import com.mongodb.DBObject;
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
 public class DocumentCadiUnitTest {
-    @DisplayName("Given object When save object using MongoDB template Then object can be found")
     @Test
     public void test(@Autowired MongoTemplate mongoTemplate) {
         // given
