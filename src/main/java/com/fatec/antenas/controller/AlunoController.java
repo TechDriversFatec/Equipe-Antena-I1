@@ -1,8 +1,12 @@
 package com.fatec.antenas.controller;
 
+import javax.mail.SendFailedException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
+import com.fatec.antenas.service.AlunoService;
+import com.fatec.antenas.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,6 +34,12 @@ public class AlunoController {
 	
 	@Autowired
 	private AlunoRepository alunoDAO;
+
+	@Autowired
+	private AlunoService alunoService;
+
+	@Autowired
+	private EmailService emailService;
 	
 	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario aluno, HttpServletResponse response){
@@ -75,6 +85,24 @@ public class AlunoController {
 	public ResponseEntity<?> getEmpresarioByID(@RequestAttribute("idUsuarioLogado") String idUsuarioLogado){
 		return new ResponseEntity<>(alunoDAO.findById(idUsuarioLogado), HttpStatus.OK);
 	}
+
+	@PostMapping(path = "/sendEmail")
+	public ResponseEntity<?> enviaEmail(@RequestAttribute("email") String email, @RequestAttribute("url") String url) throws SendFailedException {
+		//TODO: como inserir a url?
+		emailService.sendMail(email, url);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@GetMapping(path = "/ativa/{b64code}")
+	public ResponseEntity<?> ativaAluno(@PathVariable String b64code){
+		DocumentAluno aluno = alunoService.ativaAluno(b64code);
+		if (aluno == null) {
+			return new ResponseEntity<>("Código não corresponde a nenhum aluno!", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(aluno, HttpStatus.OK);
+		}
+	}
+
 	
 	private void verifyIfAlunoExistsID(String id) {
 		if(!alunoDAO.findById(id).isPresent() ) {

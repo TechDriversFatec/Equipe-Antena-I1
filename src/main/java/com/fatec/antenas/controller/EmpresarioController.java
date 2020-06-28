@@ -2,12 +2,16 @@ package com.fatec.antenas.controller;
 
 
 
+import javax.mail.SendFailedException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.fatec.antenas.model.DocumentCadi;
+import com.fatec.antenas.service.EmailService;
+import com.fatec.antenas.service.EmpresarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -41,6 +45,12 @@ public class EmpresarioController {
 	
 	@Autowired
     private EmpresarioRepository empresarioDAO;
+
+	@Autowired
+	private EmpresarioService empresarioService;
+
+	@Autowired
+	private EmailService emailService;
 	
 	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario empresario, HttpServletResponse response){
@@ -91,6 +101,22 @@ public class EmpresarioController {
 		return new ResponseEntity<>(empresarioDAO.findById(idEmpresarioLogado), HttpStatus.OK);
 	}
 
+	@PostMapping(path = "/sendEmail")
+	public ResponseEntity<?> enviaEmail(@RequestAttribute("email") String email, @RequestAttribute("url") String url) throws SendFailedException {
+		//TODO: como inserir a url?
+		emailService.sendMail(email, url);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@GetMapping(path = "/ativa/{b64code}")
+	public ResponseEntity<?> ativaEmpresario(@PathVariable String b64code){
+		DocumentEmpresario empresario = empresarioService.ativaEmpresario(b64code);
+		if (empresario == null) {
+			return new ResponseEntity<>("Código não corresponde a nenhum Empresário!", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(empresario, HttpStatus.OK);
+		}
+	}
 
 	private void verifyIfEmpresarioExistsID(String id) {
 		if(!empresarioDAO.findById(id).isPresent() ) {
