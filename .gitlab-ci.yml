@@ -4,16 +4,16 @@ image: maven:latest
 stages:
     - test
     - build
+    - release
     - create-image
     - deploy
-    - release
     
 variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
     GIT_DEPTH: "0"
 
-.build:
+build:
   stage: build
   artifacts:
     paths:
@@ -31,7 +31,7 @@ variables:
     - master
 
 
-.test:
+test:
   stage: test
   script: 
     - $MAVEN_HOME/bin/mvn test
@@ -40,7 +40,7 @@ variables:
     - master
 
 
-.create-image:
+create-image:
   image: gradle:alpine
   stage: create-image
   tags:
@@ -50,6 +50,7 @@ variables:
     - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - sudo docker build -t projetoantenas/antenas-integracao .
     - sudo docker push projetoantenas/antenas-integracao
+  when: manual
   only:
     - master
 
@@ -78,7 +79,7 @@ deploy:
   only:
     - master
 
-.sonarcloud-check:
+sonarcloud-check:
   image: maven:3.6.3-jdk-11
   cache:
     key: "${CI_JOB_NAME}"
