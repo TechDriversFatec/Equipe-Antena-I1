@@ -1,11 +1,9 @@
 package com.fatec.antenas.controller;
 
-import javax.mail.SendFailedException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.fatec.antenas.service.EmailService;
-import com.fatec.antenas.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.antenas.error.ResourceAlreadyExistsException;
 import com.fatec.antenas.error.ResourceNotFoundException;
-import com.fatec.antenas.model.DocumentEmpresario;
 import com.fatec.antenas.model.DocumentProfessor;
 import com.fatec.antenas.model.Usuario;
 import com.fatec.antenas.repository.ProfessorRepository;
@@ -34,12 +31,6 @@ public class ProfessorController {
 	
 	@Autowired
 	private ProfessorRepository professorDAO;
-
-	@Autowired
-	private ProfessorService professorService;
-
-	@Autowired
-	private EmailService emailService;
 	
 	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario professor, HttpServletResponse response){
@@ -85,23 +76,6 @@ public class ProfessorController {
 	@GetMapping(path = "/byID")
 	public ResponseEntity<?> getEmpresarioByID(@RequestAttribute("idUsuarioLogado") String idUsuarioLogado){
 		return new ResponseEntity<>(professorDAO.findById(idUsuarioLogado), HttpStatus.OK);
-	}
-
-	@PostMapping(path = "/sendEmail")
-	public ResponseEntity<?> enviaEmail(@RequestAttribute("email") String email, @RequestAttribute("url") String url) throws SendFailedException {
-		//TODO: como inserir a url?
-		emailService.sendMail(email, url);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
-	@GetMapping(path = "/ativa/{b64code}")
-	public ResponseEntity<?> ativaProfessor(@PathVariable String b64code){
-		DocumentProfessor professor = professorService.ativaProfessor(b64code);
-		if (professor == null) {
-			return new ResponseEntity<>("Código não corresponde a nenhum Professor!", HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(professor, HttpStatus.OK);
-		}
 	}
 
 	private void verifyIfProfessorExistsID(String id) {

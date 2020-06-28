@@ -5,9 +5,11 @@ import com.fatec.antenas.repository.EmpresarioRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 
+@Service
 public class EmpresarioService {
 
     @Autowired

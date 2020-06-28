@@ -20,7 +20,7 @@ public class DocumentEmpresario extends Usuario {
 			@NotEmpty(message = "Password is mandatory") String senha, 
 			@NotEmpty(message = "Company name is mandatory") String empresa,
 			@NotEmpty(message = "CPF is mandatory") String cpf, String telefone) {
-		super(_id, nome, email, senha, false, true);
+		super(_id, nome, email, senha, false, false);
 		this.empresa = empresa;
 		this.cpf = cpf;
 		this.telefone = telefone;

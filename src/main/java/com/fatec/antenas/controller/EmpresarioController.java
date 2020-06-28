@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
 import com.fatec.antenas.error.ResourceAlreadyExistsException;
@@ -55,7 +56,9 @@ public class EmpresarioController {
 	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario empresario, HttpServletResponse response){
 		DocumentEmpresario findEmpresario = empresarioDAO.findByEmail(empresario.getEmail());
-		
+		if (!findEmpresario.getAtivo()) {
+			return new ResponseEntity<>("Confirme o e-mail antes de logar.", HttpStatus.FORBIDDEN);
+		}
 		JWTToken jwt = new JWTToken();
 		jwt.jwtEmpresario(response, findEmpresario, empresario);
      
@@ -63,12 +66,12 @@ public class EmpresarioController {
 	}
 	
 	@PostMapping(path = "/pub/save")
-	public ResponseEntity<?> save(@Valid @RequestBody DocumentEmpresario empresario){
+	public ResponseEntity<?> save(@Valid @RequestBody DocumentEmpresario empresario) throws SendFailedException {
 		
 		verifyIfEmpresarioExistsEmail(empresario.getEmail());
 		String senha = empresario.getSenha();
 		empresario.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
-		
+		emailService.sendMail(empresario.getEmail(), "http://localhost:8081/empresario/ativa/");
 		return new ResponseEntity<>(empresarioDAO.save(empresario), HttpStatus.OK);
 	}
 	
@@ -101,21 +104,10 @@ public class EmpresarioController {
 		return new ResponseEntity<>(empresarioDAO.findById(idEmpresarioLogado), HttpStatus.OK);
 	}
 
-	@PostMapping(path = "/sendEmail")
-	public ResponseEntity<?> enviaEmail(@RequestAttribute("email") String email, @RequestAttribute("url") String url) throws SendFailedException {
-		//TODO: como inserir a url?
-		emailService.sendMail(email, url);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
 	@GetMapping(path = "/ativa/{b64code}")
-	public ResponseEntity<?> ativaEmpresario(@PathVariable String b64code){
+	public RedirectView ativaEmpresario(@PathVariable String b64code){
 		DocumentEmpresario empresario = empresarioService.ativaEmpresario(b64code);
-		if (empresario == null) {
-			return new ResponseEntity<>("Código não corresponde a nenhum Empresário!", HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(empresario, HttpStatus.OK);
-		}
+		return new RedirectView("/");
 	}
 
 	private void verifyIfEmpresarioExistsID(String id) {

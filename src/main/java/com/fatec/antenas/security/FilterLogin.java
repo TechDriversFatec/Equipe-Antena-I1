@@ -35,7 +35,8 @@ public class FilterLogin implements Filter {
 	        		httpRequest.getServletPath().startsWith("/css") ||
 	        		httpRequest.getServletPath().startsWith("/js") ||
 					httpRequest.getServletPath().startsWith("/imgs") ||
-					httpRequest.getServletPath().startsWith("/monitoring")) {
+					httpRequest.getServletPath().startsWith("/monitoring") ||
+					httpRequest.getServletPath().startsWith("/empresario/ativa")) {
 	            chain.doFilter(request, response);
 	            return;
 	        }

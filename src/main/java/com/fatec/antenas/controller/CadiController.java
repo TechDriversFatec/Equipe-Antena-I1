@@ -1,11 +1,8 @@
 package com.fatec.antenas.controller;
 
-import javax.mail.SendFailedException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.fatec.antenas.model.DocumentAluno;
-import com.fatec.antenas.service.CadiService;
 import com.fatec.antenas.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fatec.antenas.error.ResourceAlreadyExistsException;
 import com.fatec.antenas.error.ResourceNotFoundException;
 import com.fatec.antenas.model.DocumentCadi;
-import com.fatec.antenas.model.DocumentEmpresario;
 import com.fatec.antenas.model.Usuario;
 import com.fatec.antenas.repository.CadiRepository;
 import com.fatec.antenas.security.JWTToken;
@@ -35,12 +31,6 @@ public class CadiController {
 	
 	@Autowired
 	private CadiRepository cadiDAO;
-
-	@Autowired
-	private CadiService cadiService;
-
-	@Autowired
-	private EmailService emailService;
 	
 	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario cadi, HttpServletResponse response){
@@ -88,24 +78,6 @@ public class CadiController {
 		return new ResponseEntity<>(cadiDAO.findById(idUsuarioLogado), HttpStatus.OK);
 	}
 
-	@PostMapping(path = "/sendEmail")
-	public ResponseEntity<?> enviaEmail(@RequestAttribute("email") String email, @RequestAttribute("url") String url) throws SendFailedException {
-		//TODO: como inserir a url?
-		emailService.sendMail(email, url);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
-	@GetMapping(path = "/ativa/{b64code}")
-	public ResponseEntity<?> ativaCadi(@PathVariable String b64code){
-		DocumentCadi cadi = cadiService.ativaCadi(b64code);
-		if (cadi == null) {
-			return new ResponseEntity<>("Código não corresponde a nenhum usuário CADI!", HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(cadi, HttpStatus.OK);
-		}
-	}
-
-	
 	private void verifyIfCadiExistsEmail(String email) {
 		if(cadiDAO.findByEmail(email) != null) {
 			throw new ResourceAlreadyExistsException("cadi already exists : "+ email);
