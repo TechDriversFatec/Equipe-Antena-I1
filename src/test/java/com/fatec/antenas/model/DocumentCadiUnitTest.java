@@ -1,5 +1,6 @@
 package com.fatec.antenas.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import com.fatec.antenas.repository.CadiRepository;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
