@@ -4,9 +4,9 @@ image: maven:latest
 stages:
     - test
     - build
+    - release
     - create-image
     - deploy
-    - release
     
 variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
@@ -50,6 +50,7 @@ create-image:
     - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - sudo docker build -t projetoantenas/antenas-integracao .
     - sudo docker push projetoantenas/antenas-integracao
+  when: manual
   only:
     - master
 
@@ -94,19 +95,12 @@ release:
   stage: release
   tags:
     - deploy
-  before_script:
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.example.com/group/repo.git".insteadOf git@gitlab.example.com:group/repo.git
   script:
     - pwd
     - git clone https://Releaser-ci:${CI_JOB_TOKEN}@gitlab.com/jesscahelen/antenas-integracao.git
     - cd antenas-integracao    
-    - grep '<version>0.0.' pom.xml    
-    - git config --global user.email "${CI_EMAIL}"
-    - git config --global user.name "${CI_USERNAME}"
-    - git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com/"
     - git checkout master 
-    - mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare #-DpushChanges=false
+    - mvn -B -DskipTests -Darguments=-DskipTests release:clean release:prepare
   when: manual
   only:
   - master

@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.fatec.antenas</groupId>
     <artifactId>antenas</artifactId>
-    <version>0.0.8-SNAPSHOT</version>
+    <version>0.0.10-SNAPSHOT</version>
     <name>antenas</name>
     <description>Aplicação Fatec </description>
     
