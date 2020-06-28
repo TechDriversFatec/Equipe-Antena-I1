@@ -63,7 +63,7 @@ create-image:
     #- kubectl expose deployment $NOME_SERVICO --type=LoadBalancer --port 80 --target-port 8080
     #- kubectl get service
     - kubectl get deployment $NOME_SERVICO
-    - kubectl scale deployment $NOME_SERVICO --replicas=3
+    # kubectl scale deployment $NOME_SERVICO --replicas=3
     - kubectl get deployment $NOME_SERVICO
     - kubectl get pods
     - kubectl set image deployment/$NOME_SERVICO antenas-integracao=projetoantenas/antenas-integracao:latest
