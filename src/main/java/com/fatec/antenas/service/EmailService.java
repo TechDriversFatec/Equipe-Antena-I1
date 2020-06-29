@@ -3,6 +3,7 @@ package com.fatec.antenas.service;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -13,13 +14,11 @@ import java.util.Base64;
 import java.util.Calendar;
 
 @Service
+@Profile("!test")
 public class EmailService {
 
     @Autowired
     public JavaMailSender emailSender;
-
-    @Value("${spring.mail.username}")
-    private String remetente;
 
     public void sendMail(String email, String url) throws SendFailedException {
 
@@ -32,7 +31,7 @@ public class EmailService {
             String link = url + b64;
 
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(remetente);
+            message.setFrom("enviaemailtesteantenas@gmail.com");
             message.setTo(email);
             message.setSubject("Antenas - Confirmação de e-mail");
             message.setText("Para acessar com seu usuário no Antenas, clique no link: " + link);
