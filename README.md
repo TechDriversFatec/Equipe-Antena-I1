@@ -53,7 +53,7 @@ Acesse uma versão de demonstração do sistema Antenas em: [link](http://34.95.
 
 ### Monitoramento
 A aplicação de demonstração foi instalada em um cluster de 3 máquinas virtuais na plataforma Google Cloud. Visualize a atividade do cluster nesse link:
-link](http://34.95.196.227:8080).
+[link](http://34.95.196.227:8080).
 
 ### Teste a aplicação
 Para testar uma versão do projeto em um ambiente local, clone o projeto para uma máquina com ambiente JDK e gerenciador de projeto Maven instalados e rode os seguintes comandos no diretório do projeto:
