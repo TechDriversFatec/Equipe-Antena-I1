@@ -4,11 +4,10 @@ $(document).ready(function () {
 /* Informações do Usuário Professor */
 
       Fetch.get(`/professor/byID`).then(professor => {
-        console.log(professor);
+        userData(professor)
 
        /* <> Rotas de inicialização dos objetos */
         Fetch.get(`/projeto/byprofessor/${professor.email}`).then(projetos => {
-          console.log(projetos);
           insertMyProjects(projetos);
         });
          /* </> Rotas de inicialização dos objetos */
@@ -23,8 +22,7 @@ $(document).ready(function () {
       
       /* listagem de projetos do professor */
       function insertMyProjects(projecs) {
-        
-        console.log(projecs);
+      
         let tbody = $('[data-myProjects-table-body]');
     
         projecs.forEach(project => {
@@ -118,11 +116,11 @@ function userData(user){
       $logout.click(function(e) {
           e.preventDefault();
           if (confirm('Realmente deseja Sair ?')) {
-              sessionStorage.clear(session_login);
-              window.location.href = 'index.html';
+            $.get("/logout").fail( e => console.log(e));
+            location.replace('/');
           }
       });
-      
+
       /* Alterar Senha */
       let updateSenha = $.parseHTML(`
       <li><i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -272,20 +270,16 @@ function _formUpdateSenha(user){
     var senha1 = $("#senha-nova1").val();
     var senha2 = $("#senha-nova2").val();
     
- 
-    if(senhaAntiga === user.senha && senhaAntiga != null){
-        if(senha1 === senha2 && senha1 != null && senha2 != null){
-          $.post("/updateProfessor", JSON.stringify({'_id':user._id, 'senha': senha1}), "json");
-          $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-success" role="alert">
-          Senha alterada com sucesso</div>`));
-        }else{
-          $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-danger" role="alert">
-          Senha de nova ou senha de confirmação inválidas ou não correspondentes.</div>`));
-        }
+  if(senha1 === senha2 && senha1 != null && senha2 != null){
+      user.senha = senha1;
+      Fetch.post("/professor/pub/save", user).then(() => {
+        $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-success" role="alert">
+        Senha alterada com sucesso</div>`));
+        window.location.reload();
+      });
     }else{
       $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-danger" role="alert">
-          Senha não corresponde com a atual!, por favor insira a senha correta.
-      </div>`));
+      Senha de nova ou senha de confirmação inválidas ou não correspondentes.</div>`));
     }
   });
 }

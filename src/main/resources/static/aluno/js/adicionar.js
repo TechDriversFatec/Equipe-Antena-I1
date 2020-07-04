@@ -81,5 +81,12 @@ $(document).ready(function () {
 		document.getElementById('login').style.display = 'none';
 	}
 	
+	$('[data-aluno-logout]').click(function(e){
+		e.preventDefault();
+		if (confirm('Realmente deseja Sair ?')) {
+		  $.get("/logout").fail( e => console.log(e));
+		  location.replace('/');
+		}
+	  })
 
 });	

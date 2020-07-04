@@ -206,12 +206,11 @@
   });
 
   $('[data-empresario-logout]').click(function(e){
-
     e.preventDefault();
- 
-    localStorage.removeItem('token');
-   
-    location.replace('/');
+    if (confirm('Realmente deseja Sair ?')) {
+      $.get("/logout").fail( e => console.log(e));
+      location.replace('/');
+    }
   })
 
 });

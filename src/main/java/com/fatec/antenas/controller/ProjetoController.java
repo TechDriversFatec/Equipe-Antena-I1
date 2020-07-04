@@ -1,6 +1,5 @@
 package com.fatec.antenas.controller;
 
-import com.fatec.antenas.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

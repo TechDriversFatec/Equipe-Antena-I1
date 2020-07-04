@@ -30,6 +30,8 @@ public class FilterLogin implements Filter {
 	    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 	        HttpServletResponse httpResponse = (HttpServletResponse)response;
 	        HttpServletRequest httpRequest = (HttpServletRequest)request;
+	        
+	        
 	
 	        if (httpRequest.getServletPath().equals("/") ||
 	        		httpRequest.getServletPath().startsWith("/css") ||
@@ -48,6 +50,14 @@ public class FilterLogin implements Filter {
 	       
 	     
 	        Cookie token = WebUtils.getCookie(httpRequest, "token");
+	        
+	        if(httpRequest.getServletPath().equals("/logout")){
+	        	token.setMaxAge(0);
+	        	httpResponse.addCookie(token);
+	        	httpResponse.sendError(HttpStatus.OK.value());
+	        	return;
+	        }
+	        
 	        if (token == null) {
 	            httpResponse.sendError(HttpStatus.UNAUTHORIZED.value());
 	            return;

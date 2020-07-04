@@ -7,6 +7,7 @@
       let maisInfoModal = $('#modal-mais-info');
 
       Fetch.get(`/cadi/byID`).then(cadi => {
+        userData(cadi);
         Fetch.get(`/projeto/bycadi/${cadi.email}`).then(projetos => {
           insertProjectsOnTable(projetos);
         });
@@ -276,8 +277,8 @@
           $logout.click(function(e) {
               e.preventDefault();
               if (confirm('Realmente deseja Sair ?')) {
-                  sessionStorage.clear(session_login);
-                  window.location.href = 'index.html';
+                $.get("/logout").fail( e => console.log(e));
+                location.replace('/');
               }
           });
 
@@ -302,10 +303,10 @@
           /* Pupula Usuário Data */
           let data = $.parseHTML(`
           <li>${user.nome}</li>
-          <li>${user.nivel == 2 ? "Administrador" : "Usuario CADI"}</li>`);
+          <li>${user.admin ? "Administrador" : "Usuario CADI"}</li>`);
           /* </> Pupula Usuário Data */
-          if(user.nivel == 2) {
-            $.post("/listarCadi", function(users){
+          if(user.admin) {
+            $.get("/cadi/all", function(users){
               _isAdmin(users);
             }, "json");
             
@@ -370,20 +371,19 @@ function _formUpdateSenha(user){
     var senha2 = $("#senha-nova2").val();
     
  
-    if(senhaAntiga === user.senha && senhaAntiga != null){
-        if(senha1 === senha2 && senha1 != null && senha2 != null){
-          $.post("/updateCadi", JSON.stringify({'_id':user._id, 'senha': senha1}), "json");
-          $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-success" role="alert">
-          Senha alterada com sucesso</div>`));
-        }else{
-          $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-danger" role="alert">
-          Senha de nova ou senha de confirmação inválidas ou não correspondentes.</div>`));
-        }
+ 
+    if(senha1 === senha2 && senha1 != null && senha2 != null){
+      // $.post("/updateCadi", JSON.stringify({'_id':user._id, 'senha': senha1}), "json");
+      user.senha = senha1;
+      Fetch.post("/cadi/pub/save", user).then(() => {
+        $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-success" role="alert">
+        Senha alterada com sucesso</div>`));
+      });
     }else{
       $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-danger" role="alert">
-          Senha não corresponde com a atual!, por favor insira a senha correta.
-      </div>`));
+      Senha de nova ou senha de confirmação inválidas ou não correspondentes.</div>`));
     }
+    
   });
 }
 
@@ -414,7 +414,7 @@ function _isAdmin(users){
 
     ul_tabs.append(nav);
     div_content.append(content);
-    
+    console.log(users)
     users.forEach(user => {
       let tr = $.parseHTML(`<tr data-user-item="${ user._id }> 
         <th scope="row"></th>
@@ -506,14 +506,16 @@ function _formAdminUpdateSenha(user){
     var senha1 = $("#senha-nova1").val();
     var senha2 = $("#senha-nova2").val();
     
-        if(senha1 === senha2 && senha1 != null && senha2 != null){
-          $.post("/updateCadi", JSON.stringify({'_id':user._id, 'senha': senha1}), "json");
-          $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-success" role="alert">
-          Senha alterada com sucesso</div>`));
-        }else{
-          $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-danger" role="alert">
-          Senha de nova ou senha de confirmação inválidas ou não correspondentes.</div>`));
-        }
+    if(senha1 === senha2 && senha1 != null && senha2 != null){
+      user.senha = senha1;
+      Fetch.post("/cadi/pub/save", user).then(() => {
+        $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-success" role="alert">
+        Senha alterada com sucesso</div>`));
+      });
+    }else{
+      $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-danger" role="alert">
+      Senha de nova ou senha de confirmação inválidas ou não correspondentes.</div>`));
+    }
 
   });
 }
@@ -566,10 +568,16 @@ function _formUpdateAcess(user){
 
   $('#submit_updateAcesso').click(function() {
     let nivel = $("input[name='optNivel']:checked").val();
+    if(nivel === "Administrador") user.admin = true;user.ativo = true;
+    if(nivel === "CADI") user.admin = false; user.ativo = true;
+    if(nivel === "Pré cadastrado") user.admin = false; user.ativo = false;
 
     if (confirm('Deseja realmente alterar o nivel de acesso do '+user.nome)) {
-      $.post("/updateCadi", JSON.stringify({'_id':user._id, 'nivel': nivel}), "json");
+      Fetch.post("/cadi/pub/save", user).then(() => {
+        $('#modal-footer-password').append($.parseHTML(`<div class="alert alert-success" role="alert">
+        Senha alterada com sucesso</div>`));
+      });
     }
-   
+    
   });
 }

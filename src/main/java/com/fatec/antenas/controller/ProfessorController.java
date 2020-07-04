@@ -3,7 +3,6 @@ package com.fatec.antenas.controller;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.fatec.antenas.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -45,7 +44,7 @@ public class ProfessorController {
 	
 	@PostMapping(path = "/pub/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentProfessor professor){
-		verifyIfProfessorExistsEmail(professor.getEmail());
+		verifyIfProfessorExistsEmail(professor.getEmail(), professor.get_id());
 		String senha = professor.getSenha();
 		professor.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
 		return new ResponseEntity<>(professorDAO.save(professor), HttpStatus.CREATED);
@@ -84,9 +83,10 @@ public class ProfessorController {
 		}
 	}
 	
-	private void verifyIfProfessorExistsEmail(String email) {
-		if(professorDAO.findByEmail(email) != null) {
-			throw new ResourceAlreadyExistsException("Businessman already exists : "+ email);
+	private void verifyIfProfessorExistsEmail(String email, String id) {
+		DocumentProfessor find = professorDAO.findByEmail(email);
+		if(find != null && !find.get_id().equals(id)) {
+			throw new ResourceAlreadyExistsException("Professor already exists : "+ email);
 		}
 	}
 }

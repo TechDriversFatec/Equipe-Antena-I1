@@ -3,9 +3,7 @@ package com.fatec.antenas.controller;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.fatec.antenas.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +43,7 @@ public class CadiController {
 	
 	@PostMapping(path = "/pub/save")
 	public ResponseEntity<?> save(@Valid @RequestBody DocumentCadi cadi){
-		verifyIfCadiExistsEmail(cadi.getEmail());
+		verifyIfCadiExistsEmail(cadi.getEmail(), cadi.get_id());
 		String senha = cadi.getSenha();
 		cadi.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
 		return new ResponseEntity<>(cadiDAO.save(cadi), HttpStatus.OK);
@@ -57,8 +55,8 @@ public class CadiController {
 	}
 	
 	@GetMapping(path = "/all")
-	public ResponseEntity<?> listAll(Pageable pageable){
-		return new ResponseEntity<>(cadiDAO.findAll(pageable), HttpStatus.OK);
+	public ResponseEntity<?> listAll(){
+		return new ResponseEntity<>(cadiDAO.findAll(), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path="delete/{id}")
@@ -78,8 +76,9 @@ public class CadiController {
 		return new ResponseEntity<>(cadiDAO.findById(idUsuarioLogado), HttpStatus.OK);
 	}
 
-	private void verifyIfCadiExistsEmail(String email) {
-		if(cadiDAO.findByEmail(email) != null) {
+	private void verifyIfCadiExistsEmail(String email, String id) {
+		DocumentCadi find = cadiDAO.findByEmail(email);
+		if(find != null && !find.get_id().equals(id)) {
 			throw new ResourceAlreadyExistsException("cadi already exists : "+ email);
 		}
 	}

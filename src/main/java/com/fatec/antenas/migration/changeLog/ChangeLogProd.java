@@ -4,7 +4,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.fatec.antenas.model.DocumentAluno;
+import com.fatec.antenas.model.DocumentCadi;
 import com.fatec.antenas.model.DocumentEmpresario;
+import com.fatec.antenas.model.DocumentProfessor;
 import com.fatec.antenas.util.PasswordEncrypt;
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
@@ -35,7 +37,7 @@ public class ChangeLogProd {
 	  @Profile("prod")
 	  @ChangeSet(order = "001", id = "cadi_default_admin", author = "prod", systemVersion = "prod:0.0.1")
 	  public void cadInitCadiAdminProd(MongoTemplate mongoTemplate){
-		  DocumentAluno cadiAdmin = new DocumentAluno(null, "admin", "admin.cadi@fatec.sp.gov.br", new PasswordEncrypt("admin").getPasswordEncoder());
+		  DocumentCadi cadiAdmin = new DocumentCadi(null, "admin", "admin.cadi@fatec.sp.gov.br", new PasswordEncrypt("admin").getPasswordEncoder());
 		  	cadiAdmin.setAdmin(true);
 		  	cadiAdmin.setAtivo(true);
 			mongoTemplate.save(cadiAdmin);
@@ -45,7 +47,7 @@ public class ChangeLogProd {
 	  @Profile("prod")
 	  @ChangeSet(order = "001", id = "prof_default_admin", author = "prod", systemVersion = "prod:0.0.1")
 	  public void cadInitProfessorAdminProd(MongoTemplate mongoTemplate){
-		  DocumentAluno professorAdmin = new DocumentAluno(null, "admin", "admin.professor@fatec.sp.gov.br", new PasswordEncrypt("admin").getPasswordEncoder());
+		  DocumentProfessor professorAdmin = new DocumentProfessor(null, "admin", "admin.professor@fatec.sp.gov.br", new PasswordEncrypt("admin").getPasswordEncoder());
 		  professorAdmin.setAdmin(true);
 		  professorAdmin.setAtivo(true);
 		  mongoTemplate.save(professorAdmin);

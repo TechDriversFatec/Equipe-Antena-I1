@@ -1,15 +1,12 @@
 package com.fatec.antenas.migration.changeLog;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.fatec.antenas.model.DocumentEmpresario;
 import com.fatec.antenas.util.PasswordEncrypt;
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 
 
 @ChangeLog

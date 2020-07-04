@@ -126,15 +126,6 @@ function fechaPopupCadastro(event) {
 }
 
 
-//botão para fazer logout
-$('#sair').click(function(e){
-
-    e.preventDefault();
-
-    localStorage.removeItem('token');
-    sessionStorage.setItem("sess_email_aluno", '');
-    location.replace('/aluno');
-})
 
 
 

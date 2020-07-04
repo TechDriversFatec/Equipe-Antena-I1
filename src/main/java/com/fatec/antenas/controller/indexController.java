@@ -31,4 +31,6 @@ public class indexController {
 	public String alunoView( @RequestAttribute("idUsuarioLogado") String idUsuarioLogado) {
 		return "aluno";
 	}
+	
+	
 }

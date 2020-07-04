@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fatec.antenas.error.CredentialNotFoundException;
-import com.fatec.antenas.model.DocumentEmpresario;
 import com.fatec.antenas.model.Usuario;
 
 @Component
