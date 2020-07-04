@@ -34,6 +34,7 @@ public class MigrationProd {
 			        .setSpringEnvironment(environment)
 			      .setLockQuickConfig() 
 			      .setStartSystemVersion("prod:0.0.1")
+			      .setEndSystemVersion("test:0.0.1")
 			      .build();
 
 	}
