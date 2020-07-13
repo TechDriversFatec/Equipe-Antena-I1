@@ -21,17 +21,17 @@ import com.mongodb.DBObject;
 public class DocumentCadiUnitTest {
     
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private CadiRepository cadiDAO;
 
     @Test
-    public void testeDocumentCadi (MongoTemplate mongoTemplate){
-        Assert.assertEquals(mongoTemplate.findByEmail("teste@teste.com"), null);
+    public void testeDocumentCadi (){
+        Assert.assertEquals(cadiDAO.findByEmail("teste@teste.com"), null);
         DocumentCadi documentCadi = new DocumentCadi(null,"Nome Teste", "teste@teste.com","senhaTeste" );
-        mongoTemplate.save(documentCadi);
-        DocumentCadi documentCadiFound = mongoTemplate.findByEmail("teste@teste.com");
+        cadiDAO.save(documentCadi);
+        DocumentCadi documentCadiFound = cadiDAO.findByEmail("teste@teste.com");
         Assert.assertEquals(documentCadiFound.getNome(), documentCadi.getNome());
-        mongoTemplate.delete(documentCadi);
-        Assert.assertEquals(mongoTemplate.findByEmail("teste@teste.com"), null);
+        cadiDAO.delete(documentCadi);
+        Assert.assertEquals(cadiDAO.findByEmail("teste@teste.com"), null);
     }
 
 }
