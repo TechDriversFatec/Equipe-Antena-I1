@@ -19,6 +19,7 @@ build:
     paths:
       - target/*.jar
   script: 
+    - sed -ir "s/^[#]*\s*app.url=.*/app.url=${APP_URL}/" ./src/main/resources/application.properties
     - $MAVEN_HOME/bin/mvn clean install -DskipTests 
     
   cache:
