@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,9 @@ public class EmpresarioController {
 
 	@Autowired
 	private EmailService emailService;
+
+	@Value("${app.url}")
+	private String url;
 	
 	@PostMapping(path = "/pub/login")
 	public ResponseEntity<?> login(@RequestBody Usuario empresario, HttpServletResponse response){
@@ -61,7 +65,7 @@ public class EmpresarioController {
 		verifyIfEmpresarioExistsEmail(empresario.getEmail());
 		String senha = empresario.getSenha();
 		empresario.setSenha(new PasswordEncrypt(senha).getPasswordEncoder());
-		emailService.sendMail(empresario.getEmail(), "http://localhost:8081/empresario/ativa/");
+		emailService.sendMail(empresario.getEmail(),  url + "/empresario/ativa/");
 		return new ResponseEntity<>(empresarioDAO.save(empresario), HttpStatus.OK);
 	}
 	
