@@ -19,18 +19,19 @@ import com.mongodb.DBObject;
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
 public class DocumentCadiUnitTest {
+    
+    @Autowired
+    private CadiRepository cadiDAO;
+
     @Test
-    public void test(@Autowired MongoTemplate mongoTemplate) {
-        // given
-        DBObject objectToSave = BasicDBObjectBuilder.start()
-            .add("key", "value")
-            .get();
-
-        // when
-        mongoTemplate.save(objectToSave, "collection");
-
-        // then
-        assertThat(mongoTemplate.findAll(DBObject.class, "collection")).extracting("key")
-            .containsOnly("value");
+    public void testeDocumentCadi (){
+        Assert.assertEquals(cadiDAO.findByEmail("teste@teste.com"), null);
+        DocumentCadi documentCadi = new DocumentCadi(null,"Nome Teste", "teste@teste.com","senhaTeste" );
+        cadiDAO.save(documentCadi);
+        DocumentCadi documentCadiFound = cadiDAO.findByEmail("teste@teste.com");
+        Assert.assertEquals(documentCadiFound.getNome(), documentCadi.getNome());
+        cadiDAO.delete(documentCadi);
+        Assert.assertEquals(cadiDAO.findByEmail("teste@teste.com"), null);
     }
+
 }
